@@ -1,0 +1,71 @@
+.astronaut-wrapper {
+  position: absolute;
+  z-index: 5;
+  animation: astronaut-fly 20000ms linear 800ms infinite backwards;
+}
+
+.astronaut-shadow {
+  position: absolute;
+  inset: 0;
+}
+
+.astronaut-shadow--green {
+  transform: translate(-8px, 8px);
+  z-index: 1;
+}
+
+.astronaut-shadow--green img {
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(13%)
+    sepia(96%)
+    saturate(800%)
+    hue-rotate(140deg)
+    brightness(90%)
+    contrast(110%)
+    blur(5.9px);
+  opacity: 0.85;
+}
+
+.astronaut-shadow--purple {
+  transform: translate(8px, -8px);
+  z-index: 2;
+}
+
+.astronaut-shadow--purple img {
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(15%)
+    sepia(90%)
+    saturate(900%)
+    hue-rotate(265deg)
+    brightness(85%)
+    contrast(120%)
+    blur(5.9px);
+  opacity: 0.85;
+}
+
+.astronaut-main {
+  position: relative;
+  z-index: 3;
+}
+
+@keyframes astronaut-fly {
+  0% {
+    transform: translate(90vw, 30vh) rotate(0deg);
+  }
+
+  45% {
+    transform: translate(-40vw, 0vh) rotate(-27deg);
+  }
+
+  99% {
+    transform: translate(95vw, -30vh) rotate(-110deg);
+  }
+
+  100% {
+    transform: translate(90vw, 30vh) rotate(0deg);
+  }
+}

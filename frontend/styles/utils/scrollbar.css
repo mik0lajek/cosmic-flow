@@ -1,0 +1,10 @@
+@keyframes flicker {
+  from {
+    transform: scaleY(1) scaleX(1);
+    opacity: 0.9;
+  }
+  to {
+    transform: scaleY(1.3) scaleX(0.8);
+    opacity: 0.6;
+  }
+}

@@ -1,0 +1,39 @@
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.scroll-indicator__label {
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0.2em;
+  color: white;
+  transition: transform 400ms ease, opacity 400ms ease;
+}
+
+.scroll-indicator__line {
+  width: 4px;
+  height: 3.5vw;
+  background: white;
+  transform-origin: bottom center;
+  transition: transform 400ms ease, opacity 400ms ease;
+}
+
+.scroll-indicator:hover .scroll-indicator__label {
+  transform: translateY(-32px);
+}
+
+.scroll-indicator:hover .scroll-indicator__line {
+  transform: translateY(-8px) scaleY(1.4);
+}
+
+.scroll-indicator--scrolled .scroll-indicator__label {
+  transform: translateY(12px);
+}
+
+.scroll-indicator--scrolled .scroll-indicator__line {
+  opacity: 0;
+}
