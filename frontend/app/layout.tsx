@@ -1,6 +1,12 @@
+import type { Viewport } from "next";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import RocketScrollbar from "@/components/utils/Scrollbar";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 const playfair = Playfair_Display({
   subsets: ["latin"],

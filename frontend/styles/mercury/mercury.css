@@ -1,0 +1,209 @@
+.mercury-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+.mercury-title {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.mercury-title--back  { z-index: 1; }
+.mercury-title--front { z-index: 4; }
+
+.mercury-title__chunk {
+  display: inline-block;
+  font-size: clamp(48px, 11vw, 175px);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  color: #fff;
+  will-change: transform;
+  text-shadow:
+    0 4px 32px rgba(0, 0, 0, 0.95),
+    0 0 60px rgba(180, 130, 60, 0.08);
+}
+
+.mercury-title__chunk--hidden {
+  visibility: hidden;
+}
+
+.mercury-planet-wrapper {
+  position: absolute;
+  top: -18%;
+  right: -15%;
+  z-index: 3;
+  will-change: transform;
+}
+
+.mercury-planet {
+  position: relative;
+  width: clamp(300px, 150vmin, 1400px);
+  height: clamp(300px, 150vmin, 1400px);
+  filter: drop-shadow(0 0 70px rgba(180, 130, 60, 0.5))
+          drop-shadow(0 0 160px rgba(100, 70, 20, 0.25));
+}
+
+.mercury-img {
+  object-fit: contain !important;
+}
+
+.mercury-planet-stats {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(8px, 1.2vh, 16px);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.mercury-radius {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.mercury-radius__label {
+  font-size: clamp(12px, 1.4vw, 20px);
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  color: #fff;
+  text-shadow: 0 0 16px rgba(0, 0, 0, 1), 0 2px 8px rgba(0, 0, 0, 1);
+}
+
+.mercury-radius__value {
+  font-size: clamp(11px, 1.2vw, 18px);
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.45);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+}
+
+.mercury-stat-divider {
+  width: 50px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 2px 0;
+}
+
+.mercury-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
+}
+
+.mercury-stat__label {
+  font-size: clamp(10px, 1.2vw, 18px);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: #fff;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 1), 0 2px 6px rgba(0, 0, 0, 1);
+}
+
+.mercury-stat__value {
+  font-size: clamp(10px, 1.1vw, 16px);
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+}
+
+.mercury-description {
+  position: absolute;
+  left: 3vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(180px, 28vw, 380px);
+  z-index: 4;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.mercury-description__line {
+  font-size: clamp(11px, 1.3vw, 20px);
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 2px 0;
+  display: block;
+}
+
+.mercury-description__line--accent {
+  font-style: italic;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+@media (max-width: 1200px) and (min-width: 769px) {
+  .mercury-planet {
+    width: clamp(280px, 120vmin, 1100px);
+    height: clamp(280px, 120vmin, 1100px);
+  }
+
+  .mercury-description {
+    width: clamp(160px, 26vw, 320px);
+  }
+}
+
+@media (max-width: 768px) {
+  .mercury-title {
+    right: auto;
+    left: 50%;
+    top: 2%;
+    transform: translateX(-50%);
+  }
+
+  .mercury-title__chunk {
+    font-size: clamp(32px, 11vw, 56px);
+  }
+
+  .mercury-planet-wrapper {
+    top: 14%;
+    right: auto;
+    left: 50%;
+    margin-left: -37vmin;
+  }
+
+  .mercury-planet {
+    width: 74vmin;
+    height: 74vmin;
+  }
+
+  .mercury-radius__label,
+  .mercury-radius__value,
+  .mercury-stat__label,
+  .mercury-stat__value {
+    font-size: clamp(10px, 3vw, 13px);
+    letter-spacing: 0.15em;
+  }
+
+  .mercury-description {
+    left: 0;
+    right: 0;
+    bottom: 3%;
+    top: auto;
+    transform: none;
+    width: 100%;
+    padding: 0 6%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .mercury-description__line {
+    font-size: clamp(11px, 3vw, 14px);
+    line-height: 1.6;
+  }
+}

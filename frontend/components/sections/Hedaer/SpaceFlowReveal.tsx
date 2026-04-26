@@ -29,8 +29,8 @@ export default function SpaceFlowReveal() {
       ctx.font = `900 ${fontSize}px "Playfair Display", serif`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText("SPACE", w / 2, h / 2 - fontSize * 0.55);
-      ctx.fillText("FLOW", w / 2, h / 2 + fontSize * 0.55);
+      ctx.fillText("SOLAR", w / 2, h / 2 - fontSize * 0.55);
+      ctx.fillText("SYSTEM", w / 2, h / 2 + fontSize * 0.55);
       ctx.globalCompositeOperation = "source-over";
 
       canvas.style.opacity = String(progress);
@@ -127,10 +127,52 @@ export default function SpaceFlowReveal() {
       }
     };
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const header = document.querySelector("header");
+      const headerBottom = header?.getBoundingClientRect().bottom ?? 0;
+      const isHeaderVisible = headerBottom > 0;
+
+      const isDown = e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ";
+      const isUp   = e.key === "ArrowUp"   || e.key === "PageUp";
+      if (!isDown && !isUp) return;
+
+      if (isUp && !isHeaderVisible) {
+        e.preventDefault();
+        canvas.style.opacity = "0";
+        canvas.style.pointerEvents = "none";
+        if (rafId) cancelAnimationFrame(rafId);
+        animatingRef.current = false;
+
+        let scrollEndTimer: ReturnType<typeof setTimeout>;
+        const onScrollEnd = () => {
+          clearTimeout(scrollEndTimer);
+          scrollEndTimer = setTimeout(() => {
+            window.removeEventListener("scroll", onScrollEnd);
+            resetReveal();
+          }, 50);
+        };
+        window.addEventListener("scroll", onScrollEnd);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      if (doneRef.current && isDown) return;
+
+      if (isDown && progressRef.current < 1) {
+        e.preventDefault();
+        triggerAnimation(1);
+      } else if (isUp && progressRef.current > 0) {
+        e.preventDefault();
+        triggerAnimation(0);
+      }
+    };
+
     window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("resize", resize);
       if (rafId) cancelAnimationFrame(rafId);
     };
