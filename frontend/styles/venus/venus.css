@@ -1,0 +1,336 @@
+.venus-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+.venus-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.58) 0%, transparent 30%, rgba(0, 0, 0, 0.72) 100%),
+    linear-gradient(180deg, #000 0%, transparent 30%, transparent 74%, #000 100%);
+}
+
+.venus-starfield {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.36;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.6) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 76% 24%, rgba(255, 213, 150, 0.56) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 86% 68%, rgba(255, 255, 255, 0.44) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 34% 82%, rgba(255, 213, 150, 0.4) 0 1px, transparent 1.5px),
+    #000;
+}
+
+.venus-orbit {
+  position: absolute;
+  left: -12vw;
+  top: 50%;
+  z-index: 2;
+  width: 72vw;
+  height: 24vw;
+  border: 1px solid rgba(255, 185, 84, 0.18);
+  border-left-color: transparent;
+  border-right-color: rgba(255, 185, 84, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.venus-orbit--wide {
+  margin-top: -8vw;
+}
+
+.venus-orbit--tight {
+  left: -4vw;
+  width: 54vw;
+  height: 18vw;
+  margin-top: -6vw;
+  opacity: 0.54;
+}
+
+.venus-heat-line {
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 1px;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 190, 91, 0.06) 18%, rgba(255, 190, 91, 0.34) 46%, rgba(255, 244, 204, 0.22) 58%, transparent 100%);
+  will-change: transform;
+}
+
+.venus-heat-line--top {
+  top: 28%;
+}
+
+.venus-heat-line--bottom {
+  bottom: 22%;
+  opacity: 0.64;
+}
+
+.venus-title {
+  position: absolute;
+  left: 5vw;
+  bottom: 6vh;
+  z-index: 3;
+  margin: 0;
+  font-size: clamp(54px, 12vw, 180px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow:
+    0 0 34px rgba(255, 174, 72, 0.2),
+    0 8px 34px rgba(0, 0, 0, 0.95);
+  will-change: transform;
+}
+
+.venus-planet-shell {
+  position: absolute;
+  left: 1vw;
+  top: -7vh;
+  z-index: 5;
+  will-change: transform;
+}
+
+.venus-planet {
+  position: relative;
+  width: clamp(420px, 96vmin, 980px);
+  height: clamp(420px, 96vmin, 980px);
+  filter: none;
+  animation: venus-float 9s ease-in-out infinite alternate;
+}
+
+.venus-planet::before {
+  content: "";
+  position: absolute;
+  inset: -9%;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 178, 73, 0.2) 0%, rgba(174, 84, 24, 0.12) 38%, transparent 70%);
+  filter: blur(18px);
+}
+
+.venus-planet::after {
+  content: "";
+  position: absolute;
+  inset: 7%;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 34% 24%, rgba(255, 239, 196, 0.14), transparent 24%),
+    linear-gradient(115deg, transparent 0%, rgba(255, 222, 157, 0.08) 44%, transparent 58%);
+  mix-blend-mode: screen;
+}
+
+@keyframes venus-float {
+  from { transform: translate3d(0, -1.2vh, 0); }
+  to { transform: translate3d(0, 1.2vh, 0); }
+}
+
+.venus-img {
+  object-fit: contain !important;
+}
+
+.venus-panel {
+  position: absolute;
+  top: 14vh;
+  right: 6vw;
+  z-index: 10;
+  width: clamp(260px, 28vw, 430px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 2vh, 22px) clamp(18px, 2vw, 34px);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.venus-radius {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: clamp(10px, 1.8vh, 18px);
+  border-bottom: 1px solid rgba(255, 190, 91, 0.3);
+}
+
+.venus-radius__label {
+  font-size: clamp(18px, 2.2vw, 34px);
+  font-weight: 900;
+  letter-spacing: 0.32em;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(255, 183, 78, 0.52);
+}
+
+.venus-radius__value {
+  font-size: clamp(11px, 1.1vw, 16px);
+  letter-spacing: 0.22em;
+  color: rgba(255, 232, 190, 0.66);
+}
+
+.venus-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.venus-stat__label {
+  font-size: clamp(10px, 1.1vw, 15px);
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 0 16px rgba(0, 0, 0, 0.9);
+}
+
+.venus-stat__value {
+  font-size: clamp(10px, 1vw, 14px);
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.58);
+  text-transform: uppercase;
+}
+
+.venus-description {
+  position: absolute;
+  right: 6vw;
+  bottom: 10vh;
+  z-index: 10;
+  width: clamp(300px, 33vw, 520px);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.venus-description__line {
+  margin: 0 0 3px 0;
+  font-size: clamp(12px, 1.26vw, 20px);
+  line-height: 1.72;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.venus-description__line--accent {
+  font-style: italic;
+  font-weight: 700;
+  color: rgba(255, 222, 165, 0.94);
+}
+
+@media (max-width: 1180px) and (min-width: 769px) {
+  .venus-planet-shell {
+    left: -5vw;
+  }
+
+  .venus-planet {
+    width: clamp(380px, 86vmin, 840px);
+    height: clamp(380px, 86vmin, 840px);
+  }
+
+  .venus-panel {
+    right: 4vw;
+    width: clamp(250px, 32vw, 390px);
+  }
+
+  .venus-description {
+    right: 4vw;
+    width: clamp(280px, 36vw, 460px);
+  }
+}
+
+@media (max-width: 768px) {
+  .venus-section {
+    height: 100vh;
+    min-height: 100svh;
+    background: #000;
+  }
+
+  .venus-section::after {
+    background:
+      linear-gradient(180deg, #000 0%, transparent 24%, transparent 72%, #000 100%),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.58) 0%, transparent 50%, rgba(0, 0, 0, 0.54) 100%);
+  }
+
+  .venus-starfield {
+    opacity: 0.24;
+  }
+
+  .venus-orbit,
+  .venus-heat-line {
+    display: none;
+  }
+
+  .venus-title {
+    left: 50%;
+    top: 2.5%;
+    bottom: auto;
+    transform: translateX(-50%);
+    font-size: clamp(36px, 13vw, 64px);
+    letter-spacing: 0.08em;
+  }
+
+  .venus-planet-shell {
+    top: 9%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .venus-planet {
+    width: 74vmin;
+    height: 74vmin;
+  }
+
+  .venus-panel {
+    top: 39%;
+    left: 5%;
+    right: 5%;
+    width: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 12px;
+    text-align: center;
+  }
+
+  .venus-radius {
+    align-items: center;
+    padding-bottom: 8px;
+  }
+
+  .venus-radius__label {
+    font-size: clamp(18px, 6vw, 28px);
+    letter-spacing: 0.24em;
+  }
+
+  .venus-radius__value,
+  .venus-stat__label,
+  .venus-stat__value {
+    font-size: clamp(9px, 2.7vw, 12px);
+    letter-spacing: 0.12em;
+  }
+
+  .venus-description {
+    left: 0;
+    right: 0;
+    bottom: 4%;
+    width: 100%;
+    padding: 0 6%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .venus-description__line {
+    font-size: clamp(10px, 3vw, 14px);
+    line-height: 1.55;
+    margin-bottom: 2px;
+  }
+}

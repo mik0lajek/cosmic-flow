@@ -41,8 +41,8 @@ export default function SunSection() {
     if (isMobile) {
       animatingRef.current = false;
       progressRef.current  = 1;
-      setProg(1);
-      return;
+      const mobileRafId = requestAnimationFrame(() => setProg(1));
+      return () => cancelAnimationFrame(mobileRafId);
     }
 
     const DURATION = 1200;

@@ -26,6 +26,7 @@ const descriptionLines = [
 export default function MercurySection() {
   const progressRef  = useRef(0);
   const animatingRef = useRef(false);
+  const hasEnteredRef = useRef(false);
   const sectionRef   = useRef<HTMLElement>(null);
   const [prog, setProg]         = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -41,8 +42,8 @@ export default function MercurySection() {
     if (isMobile) {
       animatingRef.current = false;
       progressRef.current  = 1;
-      setProg(1);
-      return;
+      const mobileRafId = requestAnimationFrame(() => setProg(1));
+      return () => cancelAnimationFrame(mobileRafId);
     }
 
     const DURATION = 1200;
@@ -62,12 +63,15 @@ export default function MercurySection() {
       if (t < 1) {
         rafId = requestAnimationFrame(animate);
       } else {
+        progressRef.current = targetProg;
+        setProg(targetProg);
         animatingRef.current = false;
       }
     };
 
     const trigger = (to: number) => {
       if (animatingRef.current) return;
+      if (Math.abs(progressRef.current - to) < 0.01) return;
       if (rafId) cancelAnimationFrame(rafId);
       startProg  = progressRef.current;
       targetProg = to;
@@ -95,23 +99,62 @@ export default function MercurySection() {
       else if (isUp && progressRef.current > 0) { e.preventDefault(); trigger(0); }
     };
 
+    let activationRafId: number | null = null;
+
+    const checkActivation = () => {
+      activationRafId = null;
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const isActive =
+        Math.abs(rect.top) <= viewportHeight * 0.28 ||
+        (rect.top < viewportHeight * 0.35 && rect.bottom > viewportHeight * 0.65);
+
+      if (rect.top > viewportHeight * 0.65) {
+        hasEnteredRef.current = false;
+      }
+
+      if (isActive && !hasEnteredRef.current) {
+        hasEnteredRef.current = true;
+        trigger(1);
+      }
+    };
+
+    const queueActivationCheck = () => {
+      if (activationRafId !== null) return;
+      activationRafId = requestAnimationFrame(checkActivation);
+    };
+
+    queueActivationCheck();
+
     window.addEventListener("wheel",   handleWheel,   { passive: false });
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("scroll",  queueActivationCheck, { passive: true });
+    window.addEventListener("resize",  queueActivationCheck);
     return () => {
       window.removeEventListener("wheel",   handleWheel);
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scroll",  queueActivationCheck);
+      window.removeEventListener("resize",  queueActivationCheck);
       if (rafId) cancelAnimationFrame(rafId);
+      if (activationRafId) cancelAnimationFrame(activationRafId);
     };
   }, [isMobile]);
 
   const entranceP = Math.min(prog / 0.6, 1);
   const planetY   = (1 - entranceP) * 110;
+  const planetX   = (1 - entranceP) * 14;
+  const planetScale = 0.88 + entranceP * 0.12;
   const merX      = (1 - entranceP) * -70;
   const curY      = (1 - entranceP) * -60;
   const yX        = (1 - entranceP) * 70;
 
   const sideOpacity    = Math.max(0, (prog - 0.6) / 0.4);
-  const planetTransform = isMobile ? undefined : { transform: `translateY(${planetY}vh)` };
+  const planetTransform = isMobile ? undefined : {
+    transform: `translate3d(${planetX}vw, ${planetY}vh, 0) scale(${planetScale})`,
+  };
 
   return (
     <section ref={sectionRef} className="mercury-section">

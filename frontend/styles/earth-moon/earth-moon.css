@@ -1,0 +1,176 @@
+.earth-moon-section {
+  --earth-x: 0px;
+  --earth-y: 0px;
+  --moon-x: 0px;
+  --moon-y: 0px;
+  --field-x: 0px;
+  --field-y: 0px;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 44% 36% at 74% 28%, rgba(203, 224, 255, 0.12), transparent 68%),
+    radial-gradient(ellipse 40% 36% at 24% 70%, rgba(54, 137, 216, 0.12), transparent 70%),
+    #000;
+}
+
+.earth-moon-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #000 0%, transparent 28%, transparent 72%, #000 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, transparent 34%, rgba(0, 0, 0, 0.56) 100%);
+}
+
+.earth-moon-starfield {
+  position: absolute;
+  inset: -2%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  transform: translate3d(var(--field-x), var(--field-y), 0);
+  transition: transform 180ms ease-out;
+  background:
+    radial-gradient(circle at 8% 22%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 18% 66%, rgba(167, 211, 255, 0.54) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 48% 14%, rgba(255, 255, 255, 0.46) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 74% 76%, rgba(167, 211, 255, 0.38) 0 1px, transparent 1.5px);
+}
+
+.earth-moon-orbit {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  border: 1px solid rgba(182, 217, 255, 0.16);
+  border-left-color: transparent;
+  border-right-color: rgba(182, 217, 255, 0.06);
+  border-radius: 50%;
+  transform: rotate(-18deg);
+}
+
+.earth-moon-orbit--outer {
+  left: 12vw;
+  top: 15vh;
+  width: 74vw;
+  height: 42vh;
+}
+
+.earth-moon-orbit--inner {
+  left: 22vw;
+  top: 27vh;
+  width: 48vw;
+  height: 26vh;
+  opacity: 0.6;
+}
+
+.earth-moon-kicker {
+  position: absolute;
+  top: 8vh;
+  left: 6vw;
+  z-index: 14;
+  margin: 0;
+  font-size: clamp(36px, 8vw, 116px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.92);
+  pointer-events: none;
+  text-shadow:
+    0 0 34px rgba(80, 162, 255, 0.2),
+    0 7px 34px rgba(0, 0, 0, 0.9);
+}
+
+.earth-moon-earth {
+  position: absolute;
+  left: -10vw;
+  bottom: -36vh;
+  z-index: 5;
+  width: clamp(520px, 78vw, 1160px);
+  height: clamp(520px, 78vw, 1160px);
+  transform: translate3d(var(--earth-x), var(--earth-y), 0);
+  transition: transform 220ms ease-out;
+  filter:
+    drop-shadow(0 0 42px rgba(44, 134, 235, 0.36))
+    drop-shadow(0 0 140px rgba(22, 92, 168, 0.2));
+}
+
+.earth-moon-earth__img {
+  object-fit: contain !important;
+}
+
+.earth-moon-moon {
+  position: absolute;
+  right: 14vw;
+  top: 20vh;
+  z-index: 9;
+  width: clamp(130px, 16vw, 250px);
+  height: clamp(130px, 16vw, 250px);
+  border-radius: 50%;
+  overflow: visible;
+  transform: translate3d(var(--moon-x), var(--moon-y), 0);
+  transition:
+    transform 220ms ease-out,
+    filter 260ms ease;
+}
+
+.earth-moon-moon:hover {
+  filter:
+    drop-shadow(0 0 26px rgba(255, 255, 255, 0.62))
+    drop-shadow(0 0 82px rgba(177, 211, 255, 0.42));
+}
+
+.earth-moon-moon__halo {
+  position: absolute;
+  inset: -18%;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(234, 244, 255, 0.34) 0%, rgba(177, 211, 255, 0.18) 36%, transparent 72%);
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+.earth-moon-moon:hover .earth-moon-moon__halo {
+  opacity: 1;
+}
+
+.earth-moon-moon__img {
+  z-index: 1;
+  object-fit: cover !important;
+  object-position: 78% 66%;
+  transform: scale(1.72);
+}
+
+@media (max-width: 768px) {
+  .earth-moon-kicker {
+    top: 5vh;
+    left: 6vw;
+    font-size: clamp(32px, 11vw, 58px);
+    max-width: 90vw;
+  }
+
+  .earth-moon-orbit {
+    display: none;
+  }
+
+  .earth-moon-earth {
+    left: 50%;
+    bottom: -18vh;
+    width: 92vmin;
+    height: 92vmin;
+    transform: translate3d(calc(-50% + var(--earth-x)), var(--earth-y), 0);
+  }
+
+  .earth-moon-moon {
+    right: 9vw;
+    top: 24vh;
+    width: 28vw;
+    height: 28vw;
+  }
+}

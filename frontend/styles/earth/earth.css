@@ -1,0 +1,68 @@
+.earth-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 44% at 50% 80%, rgba(24, 121, 214, 0.2), transparent 70%),
+    #000;
+}
+
+.earth-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #000 0%, transparent 28%, transparent 76%, #000 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.56) 0%, transparent 46%, rgba(0, 0, 0, 0.36) 100%);
+}
+
+.earth-title {
+  position: absolute;
+  top: 8vh;
+  left: 50%;
+  z-index: 10;
+  margin: 0;
+  transform: translateX(-50%);
+  font-size: clamp(54px, 12vw, 178px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.92);
+  pointer-events: none;
+  text-shadow:
+    0 0 34px rgba(80, 162, 255, 0.2),
+    0 7px 34px rgba(0, 0, 0, 0.9);
+}
+
+.earth-planet {
+  position: absolute;
+  left: 50%;
+  bottom: -46vh;
+  z-index: 4;
+  width: clamp(760px, 105vw, 1560px);
+  height: clamp(760px, 105vw, 1560px);
+  transform: translateX(-50%);
+  filter:
+    drop-shadow(0 0 54px rgba(44, 134, 235, 0.4))
+    drop-shadow(0 0 170px rgba(22, 92, 168, 0.24));
+}
+
+.earth-planet__img {
+  object-fit: contain !important;
+}
+
+@media (max-width: 768px) {
+  .earth-title {
+    top: 7vh;
+    font-size: clamp(44px, 16vw, 82px);
+  }
+
+  .earth-planet {
+    bottom: -18vh;
+    width: 108vmin;
+    height: 108vmin;
+  }
+}
