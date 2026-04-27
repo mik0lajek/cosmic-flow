@@ -26,7 +26,6 @@ const descriptionLines = [
 export default function MercurySection() {
   const progressRef  = useRef(0);
   const animatingRef = useRef(false);
-  const hasEnteredRef = useRef(false);
   const sectionRef   = useRef<HTMLElement>(null);
   const [prog, setProg]         = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -99,47 +98,37 @@ export default function MercurySection() {
       else if (isUp && progressRef.current > 0) { e.preventDefault(); trigger(0); }
     };
 
-    let activationRafId: number | null = null;
-
-    const checkActivation = () => {
-      activationRafId = null;
+    const resetIfLeft = () => {
+      if (progressRef.current <= 0.01) return;
       const section = sectionRef.current;
       if (!section) return;
-
       const rect = section.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const isActive =
-        Math.abs(rect.top) <= viewportHeight * 0.28 ||
-        (rect.top < viewportHeight * 0.35 && rect.bottom > viewportHeight * 0.65);
-
-      if (rect.top > viewportHeight * 0.65) {
-        hasEnteredRef.current = false;
-      }
-
-      if (isActive && !hasEnteredRef.current) {
-        hasEnteredRef.current = true;
-        trigger(1);
+      const vh = window.innerHeight;
+      if (rect.bottom < vh * 0.1 || rect.top > vh * 0.9) {
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+        animatingRef.current = false;
+        progressRef.current = 0;
+        setProg(0);
       }
     };
 
-    const queueActivationCheck = () => {
-      if (activationRafId !== null) return;
-      activationRafId = requestAnimationFrame(checkActivation);
+    let scrollEndTimer: ReturnType<typeof setTimeout> | null = null;
+    const onScroll = () => {
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(resetIfLeft, 200);
     };
 
-    queueActivationCheck();
-
-    window.addEventListener("wheel",   handleWheel,   { passive: false });
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("scroll",  queueActivationCheck, { passive: true });
-    window.addEventListener("resize",  queueActivationCheck);
+    window.addEventListener("wheel",    handleWheel,  { passive: false });
+    window.addEventListener("keydown",  handleKeyDown);
+    window.addEventListener("scrollend", resetIfLeft, { passive: true });
+    window.addEventListener("scroll",   onScroll,     { passive: true });
     return () => {
-      window.removeEventListener("wheel",   handleWheel);
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("scroll",  queueActivationCheck);
-      window.removeEventListener("resize",  queueActivationCheck);
+      window.removeEventListener("wheel",    handleWheel);
+      window.removeEventListener("keydown",  handleKeyDown);
+      window.removeEventListener("scrollend", resetIfLeft);
+      window.removeEventListener("scroll",   onScroll);
       if (rafId) cancelAnimationFrame(rafId);
-      if (activationRafId) cancelAnimationFrame(activationRafId);
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
     };
   }, [isMobile]);
 

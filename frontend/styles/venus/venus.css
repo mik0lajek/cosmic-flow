@@ -82,7 +82,7 @@
   position: absolute;
   left: 5vw;
   bottom: 6vh;
-  z-index: 3;
+  z-index: 6;
   margin: 0;
   font-size: clamp(54px, 12vw, 180px);
   font-weight: 900;

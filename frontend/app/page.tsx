@@ -3,7 +3,6 @@ import SunSection from "@/components/sections/Sun/Sun";
 import MercurySection from "@/components/sections/Mercury/Mercury";
 import VenusSection from "@/components/sections/Venus/Venus";
 import EarthMoonSection from "@/components/sections/EarthMoon/EarthMoon";
-import EarthSection from "@/components/sections/Earth/Earth";
 
 export default function Home() {
   return (
@@ -13,7 +12,6 @@ export default function Home() {
       <MercurySection />
       <VenusSection />
       <EarthMoonSection />
-      <EarthSection />
     </>
   );
 }

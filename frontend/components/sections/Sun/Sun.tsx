@@ -95,25 +95,37 @@ export default function SunSection() {
       else if (isUp && progressRef.current > 0) { e.preventDefault(); trigger(0); }
     };
 
-    const handleScroll = () => {
+    const resetIfLeft = () => {
+      if (progressRef.current <= 0.01) return;
       const section = sectionRef.current;
       if (!section) return;
-      if (section.getBoundingClientRect().top > 100 && progressRef.current > 0) {
-        if (rafId) cancelAnimationFrame(rafId);
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight;
+      if (rect.bottom < vh * 0.1 || rect.top > vh * 0.9) {
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
         animatingRef.current = false;
         progressRef.current  = 0;
         setProg(0);
       }
     };
 
-    window.addEventListener("wheel",   handleWheel,   { passive: false });
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("scroll",  handleScroll,  { passive: true });
+    let scrollEndTimer: ReturnType<typeof setTimeout> | null = null;
+    const onScroll = () => {
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(resetIfLeft, 200);
+    };
+
+    window.addEventListener("wheel",     handleWheel,  { passive: false });
+    window.addEventListener("keydown",   handleKeyDown);
+    window.addEventListener("scrollend", resetIfLeft,  { passive: true });
+    window.addEventListener("scroll",    onScroll,     { passive: true });
     return () => {
-      window.removeEventListener("wheel",   handleWheel);
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("scroll",  handleScroll);
+      window.removeEventListener("wheel",     handleWheel);
+      window.removeEventListener("keydown",   handleKeyDown);
+      window.removeEventListener("scrollend", resetIfLeft);
+      window.removeEventListener("scroll",    onScroll);
       if (rafId) cancelAnimationFrame(rafId);
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
     };
   }, [isMobile]);
 
