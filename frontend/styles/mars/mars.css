@@ -48,6 +48,7 @@
 .mars-hero__img {
   object-fit: contain !important;
   object-position: center center;
+  transform: rotate(180deg);
 }
 
 .mars-title {
@@ -56,7 +57,7 @@
   bottom: 3vh;
   z-index: 16;
   margin: 0;
-  transform: translateX(-50%) rotate(-4deg);
+  transform: translateX(-50%);
   font-size: clamp(74px, 11vw, 144px);
   font-weight: 400;
   line-height: 0.9;
