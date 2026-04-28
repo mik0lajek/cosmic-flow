@@ -328,17 +328,30 @@
 
   .earth-moon-earth {
     left: 50%;
-    bottom: -18vh;
-    width: 92vmin;
-    height: 92vmin;
-    transform: translate3d(calc(-50% + var(--earth-x)), var(--earth-y), 0);
+    bottom: 35vh;
+    width: clamp(300px, 92vmin, 520px);
+    height: clamp(300px, 92vmin, 520px);
+    transform: translate3d(-50%, 0, 0);
+    filter:
+      drop-shadow(0 0 34px rgba(44, 134, 235, 0.42))
+      drop-shadow(0 0 110px rgba(22, 92, 168, 0.24));
   }
 
   .earth-moon-moon {
-    right: 9vw;
-    top: 24vh;
-    width: 28vw;
-    height: 28vw;
+    right: 10vw;
+    top: 20vh;
+    width: clamp(64px, 18vw, 92px);
+    height: clamp(64px, 18vw, 92px);
+    transform: none;
+    transition: none;
+  }
+
+  .earth-moon-moon__halo {
+    display: none;
+  }
+
+  .earth-moon-moon__img {
+    transform: scale(1.45);
   }
 
   .earth-moon-info {

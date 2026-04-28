@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { PointerEvent, useEffect, useRef, useState } from "react";
+import { PointerEvent, useCallback, useEffect, useRef, useState } from "react";
 import EARTH from "../../../Images/sections/earth.png";
 import MOON from "../../../Images/sections/moon.png";
 import "../../../styles/earth-moon/earth-moon.css";
@@ -32,9 +32,20 @@ export default function EarthMoonSection() {
   const [prog, setProg] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  const applyParallax = () => {
+  const applyParallax = useCallback(() => {
     const section = sectionRef.current;
     if (!section) return;
+
+    if (isMobile) {
+      section.style.setProperty("--earth-x", "0px");
+      section.style.setProperty("--earth-y", "0px");
+      section.style.setProperty("--moon-x", "0px");
+      section.style.setProperty("--moon-y", "0px");
+      section.style.setProperty("--field-x", "0px");
+      section.style.setProperty("--field-y", "0px");
+      rafRef.current = null;
+      return;
+    }
 
     const strength = Math.max(0, 1 - progressRef.current);
     section.style.setProperty("--earth-x", `${targetRef.current.x * -18 * strength}px`);
@@ -44,7 +55,7 @@ export default function EarthMoonSection() {
     section.style.setProperty("--field-x", `${targetRef.current.x * 10}px`);
     section.style.setProperty("--field-y", `${targetRef.current.y * 8}px`);
     rafRef.current = null;
-  };
+  }, [isMobile]);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768);
@@ -140,9 +151,11 @@ export default function EarthMoonSection() {
       window.removeEventListener("scroll", resetIfLeftAbove);
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [isMobile]);
+  }, [isMobile, applyParallax]);
 
   const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
+    if (isMobile) return;
+
     const bounds = event.currentTarget.getBoundingClientRect();
     targetRef.current = {
       x: (event.clientX - bounds.left) / bounds.width - 0.5,
@@ -155,6 +168,8 @@ export default function EarthMoonSection() {
   };
 
   const resetParallax = () => {
+    if (isMobile) return;
+
     targetRef.current = { x: 0, y: 0 };
     if (rafRef.current === null) {
       rafRef.current = requestAnimationFrame(applyParallax);

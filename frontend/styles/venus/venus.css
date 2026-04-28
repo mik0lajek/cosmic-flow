@@ -304,6 +304,7 @@
   .venus-planet {
     width: 74vmin;
     height: 74vmin;
+    animation: none;
   }
 
   .venus-panel {
