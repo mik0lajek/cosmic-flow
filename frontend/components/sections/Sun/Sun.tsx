@@ -147,7 +147,7 @@ export default function SunSection() {
     <section ref={sectionRef} id="section-sun" className="sun-section">
       <div className="sun-atmosphere" />
 
-      <p className="sun-label" style={{ opacity: isMobile ? 0 : titleOpacity }}>
+      <p className="sun-label" style={{ opacity: isMobile ? 1 : titleOpacity }}>
         SUN
       </p>
 
@@ -173,7 +173,7 @@ export default function SunSection() {
             className="sun-radius-line"
             aria-hidden="true"
             style={{
-              opacity: isMobile ? 0 : 1,
+              opacity: 1,
               transform: `scaleX(${isMobile ? 1 : prog})`,
             }}
           />
