@@ -95,44 +95,98 @@
   inset: 0;
   z-index: 18;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: center;
   pointer-events: none;
   will-change: opacity;
 }
 
-.mars-arc-title {
+.mars-story__inner {
+  display: flex;
+  gap: clamp(44px, 6.5vw, 104px);
+  width: min(1180px, 88vw);
+  align-items: flex-start;
+  padding-top: clamp(60px, 10vh, 124px);
+}
+
+.mars-story__left {
+  flex: 0 0 auto;
+  width: clamp(200px, 26vw, 360px);
+}
+
+.mars-story__kicker {
   display: block;
-  margin: clamp(48px, 9vh, 104px) 0 0 0;
-  color: rgba(255, 255, 255, 0.92);
-  font-size: clamp(58px, 9vw, 130px);
+  font-size: 9px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(207, 96, 45, 0.85);
+  margin-bottom: clamp(10px, 1.6vh, 18px);
+}
+
+.mars-arc-title {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(38px, 5.2vw, 80px);
   font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.06em;
-  text-align: center;
-  white-space: nowrap;
+  line-height: 0.94;
+  letter-spacing: 0.04em;
+  text-align: left;
+  white-space: normal;
   pointer-events: none;
-  text-shadow:
-    0 6px 28px rgba(0, 0, 0, 0.86),
-    0 0 22px rgba(211, 112, 58, 0.12);
+  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.9);
 }
 
-.mars-description {
-  width: min(1120px, 88vw);
-  margin-top: clamp(66px, 9vh, 110px);
-  text-align: center;
-  color: #fff;
-  text-shadow:
-    0 3px 14px rgba(0, 0, 0, 0.94),
-    0 0 28px rgba(0, 0, 0, 0.78);
+.mars-story__divider {
+  width: 44px;
+  height: 1px;
+  background: rgba(207, 96, 45, 0.55);
+  margin: clamp(18px, 2.8vh, 34px) 0;
 }
 
-.mars-description p {
-  margin: 0 0 clamp(16px, 2.2vh, 28px) 0;
-  font-size: clamp(15px, 1.45vw, 24px);
+.mars-story__stats {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vh, 24px);
+}
+
+.mars-story__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mars-story__stat-label {
+  font-size: 8px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.mars-story__stat-value {
+  font-size: clamp(11px, 1vw, 15px);
   font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.84);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+
+.mars-story__right {
+  flex: 1;
+  padding-top: clamp(68px, 8.5vh, 106px);
+}
+
+.mars-story__right p {
+  margin: 0 0 clamp(14px, 2.2vh, 24px) 0;
+  font-size: clamp(12px, 1vw, 15px);
+  font-weight: 400;
+  line-height: 1.82;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.80);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 1), 0 0 28px rgba(0,0,0,0.9);
+}
+
+.mars-story__right p:last-child {
+  margin-bottom: 0;
 }
 
 @media (max-width: 768px) {
@@ -155,21 +209,27 @@
     min-height: 0;
   }
 
+  .mars-story__inner {
+    flex-direction: column;
+    padding-top: 8vh;
+    gap: clamp(24px, 4vh, 40px);
+  }
+
+  .mars-story__left {
+    width: 100%;
+  }
+
   .mars-arc-title {
-    margin-top: 8vh;
-    font-size: clamp(38px, 11vw, 64px);
+    font-size: clamp(34px, 10vw, 56px);
     letter-spacing: 0.03em;
   }
 
-  .mars-description {
-    width: 88vw;
-    margin-top: 8vh;
+  .mars-story__right {
+    padding-top: 0;
   }
 
-  .mars-description p {
-    margin-bottom: 14px;
-    font-size: clamp(10px, 3vw, 14px);
-    line-height: 1.45;
-    letter-spacing: 0.04em;
+  .mars-story__right p {
+    font-size: clamp(11px, 2.8vw, 13px);
+    line-height: 1.65;
   }
 }

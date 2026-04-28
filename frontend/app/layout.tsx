@@ -1,7 +1,7 @@
 import type { Viewport } from "next";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
-import RocketScrollbar from "@/components/utils/Scrollbar";
+import SectionNav from "@/components/utils/SectionNav";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en" className={`${playfair.variable} h-full antialiased overflow-x-hidden`}>
       <body className="min-h-full flex flex-col font-sans">
         {children}
-         <RocketScrollbar />
+        <SectionNav />
       </body>
      
     </html>

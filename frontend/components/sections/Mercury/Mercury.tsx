@@ -12,15 +12,9 @@ const stats = [
   { label: "DISTANCE FROM EARTH", value: "149.6 million km"            },
 ];
 
-const descriptionLines = [
-  { text: "Closest to the Sun lies Mercury — a small rocky,",          accent: false },
-  { text: "world shaped by extremes. Scorched by intense",             accent: false },
-  { text: "heat during the day and frozen in darkness at night,",      accent: true  },
-  { text: "it experiences some of the harshest conditions in the",     accent: false },
-  { text: "Solar System. Its surface is marked by countless craters,", accent: false },
-  { text: "bearing witness to billions of years of cosmic impacts.",   accent: false },
-  { text: "Though small and often overlooked, Mercury reveals",        accent: false },
-  { text: "the raw, unforgiving nature of space.",                     accent: true  },
+const descriptions = [
+  "Closest to the Sun lies Mercury — a small, rocky world shaped by extremes. Scorched by intense heat during the day and frozen in darkness at night, it experiences some of the harshest conditions in the Solar System.",
+  "Its surface is marked by countless craters, bearing witness to billions of years of cosmic impacts. Though small and often overlooked, Mercury reveals the raw, unforgiving nature of space.",
 ];
 
 export default function MercurySection() {
@@ -146,7 +140,7 @@ export default function MercurySection() {
   };
 
   return (
-    <section ref={sectionRef} className="mercury-section">
+    <section ref={sectionRef} id="section-mercury" className="mercury-section">
 
       <div className="mercury-title mercury-title--back">
         <span className="mercury-title__chunk mercury-title__chunk--hidden" style={{ transform: `translateX(${merX}vw)` }}>MER</span>
@@ -172,6 +166,7 @@ export default function MercurySection() {
             pointerEvents: (isMobile || sideOpacity > 0.05) ? "all" : "none",
           }}
         >
+          <span className="mercury-stats__kicker">First Planet · Solar System</span>
           <div className="mercury-radius">
             <span className="mercury-radius__label">RADIUS</span>
             <span className="mercury-radius__value">2,440 km</span>
@@ -193,13 +188,8 @@ export default function MercurySection() {
           pointerEvents: (isMobile || sideOpacity > 0.05) ? "all" : "none",
         }}
       >
-        {descriptionLines.map((line, i) => (
-          <p
-            key={i}
-            className={`mercury-description__line${line.accent ? " mercury-description__line--accent" : ""}`}
-          >
-            {line.text}
-          </p>
+        {descriptions.map((p, i) => (
+          <p key={i} className="mercury-description__line">{p}</p>
         ))}
       </div>
 

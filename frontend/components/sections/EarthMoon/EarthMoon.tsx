@@ -15,9 +15,7 @@ const earthDetails = [
 ];
 
 const earthDescriptionLeft = [
-  "Amid the vast emptiness of space lies Earth. A vibrant world teeming with life.",
-  "Its oceans, atmosphere, and unique conditions make it the only known planet capable of sustaining life.",
-  "From afar, it appears as a fragile blue sphere suspended in darkness.",
+  "Amid the vast emptiness of space lies Earth — a vibrant world teeming with life. Its oceans, atmosphere, and unique conditions make it the only known planet capable of sustaining life. From afar, it appears as a fragile blue sphere suspended in darkness.",
 ];
 
 const earthDescriptionRight = [
@@ -204,6 +202,7 @@ export default function EarthMoonSection() {
   return (
     <section
       ref={sectionRef}
+      id="section-earth-moon"
       className="earth-moon-section"
       onPointerMove={handlePointerMove}
       onPointerLeave={resetParallax}
@@ -248,6 +247,8 @@ export default function EarthMoonSection() {
         </div>
 
         <div className="earth-moon-details">
+          <span className="earth-moon-details__kicker">Third Planet · Solar System</span>
+          <div className="earth-moon-details__divider" />
           {earthDetails.map((detail) => (
             <div key={detail.label} className="earth-moon-detail">
               <span className="earth-moon-detail__label">{detail.label}</span>

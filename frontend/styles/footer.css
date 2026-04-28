@@ -1,0 +1,43 @@
+.site-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(14px, 2vh, 22px) clamp(24px, 4vw, 56px);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+}
+
+.site-footer__brand {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.site-footer__copy {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.site-footer__authors {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+    padding: 14px 20px;
+  }
+}

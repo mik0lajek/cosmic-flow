@@ -12,13 +12,9 @@ const stats = [
   { label: "SURFACE TEMP", value: "465 C" },
 ];
 
-const descriptionLines = [
-  { text: "Wrapped in sulfur clouds, Venus hides its surface from view.", accent: false },
-  { text: "Bright and familiar from Earth, it is anything but gentle.", accent: false },
-  { text: "Runaway greenhouse heat traps the planet beneath crushing air,", accent: true },
-  { text: "turning its plains and volcanoes into a sealed furnace.", accent: false },
-  { text: "Often called Earth's twin, Venus shows how fragile", accent: false },
-  { text: "a habitable world can become when its atmosphere changes.", accent: true },
+const descriptions = [
+  "Wrapped in dense sulfur clouds, Venus hides its surface from view. Bright and familiar from Earth, it is anything but gentle.",
+  "Runaway greenhouse heat traps the planet beneath crushing air, turning its plains and volcanoes into a sealed furnace. Often called Earth's twin, Venus shows how fragile a habitable world can become when its atmosphere changes.",
 ];
 
 export default function VenusSection() {
@@ -140,7 +136,7 @@ export default function VenusSection() {
   };
 
   return (
-    <section ref={sectionRef} className="venus-section">
+    <section ref={sectionRef} id="section-venus" className="venus-section">
       <div className="venus-starfield" />
       <div className="venus-orbit venus-orbit--wide" style={isMobile ? undefined : { transform: `rotate(${orbitTilt}deg)` }} />
       <div className="venus-orbit venus-orbit--tight" style={isMobile ? undefined : { transform: `rotate(${orbitTilt + 19}deg)` }} />
@@ -164,6 +160,7 @@ export default function VenusSection() {
           pointerEvents: (isMobile || detailOpacity > 0.05) ? "all" : "none",
         }}
       >
+        <span className="venus-stats__kicker">Second Planet · Solar System</span>
         <div className="venus-radius">
           <span className="venus-radius__label">RADIUS</span>
           <span className="venus-radius__value">6,051.8 km</span>
@@ -184,13 +181,8 @@ export default function VenusSection() {
           pointerEvents: (isMobile || detailOpacity > 0.05) ? "all" : "none",
         }}
       >
-        {descriptionLines.map((line, i) => (
-          <p
-            key={i}
-            className={`venus-description__line${line.accent ? " venus-description__line--accent" : ""}`}
-          >
-            {line.text}
-          </p>
+        {descriptions.map((p, i) => (
+          <p key={i} className="venus-description__line">{p}</p>
         ))}
       </div>
     </section>

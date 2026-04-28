@@ -8,7 +8,7 @@ import SpaceFlowReveal from "./SpaceFlowReveal";
 
 export default function Header() {
   return (
-    <header className="relative w-screen h-screen px-4xl flex items-center ">
+    <header id="section-start" className="relative w-screen h-screen px-4xl flex items-center ">
       <Image
         src={IMGBG}
         alt="Header Background"

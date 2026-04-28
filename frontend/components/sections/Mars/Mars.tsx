@@ -5,15 +5,17 @@ import { useEffect, useRef, useState } from "react";
 import MARS from "../../../Images/sections/mars.png";
 import "../../../styles/mars/mars.css";
 
-const descriptionLines = [
-  "Bathed in a cold, reddish glow, Mars stands as a silent and distant world on the edge of possibility.",
-  "Its barren landscapes, carved by ancient rivers and vast canyons, hint at a past that may once have",
-  "been warmer and wetter.",
-  "Today, it endures harsh conditions, with thin atmosphere and extreme temperatures shaping its",
-  "desolate surface.",
-  "Yet among all the planets, Mars remains the most promising candidate for future exploration and",
-  "perhaps even human settlement.",
-  "It is not just a symbol of mystery, but a potential next step in humanity's journey beyond Earth.",
+const stats = [
+  { label: "Surface Gravity", value: "3.72 M/S²" },
+  { label: "Day Length",      value: "24H 37M" },
+  { label: "Avg Temperature", value: "−63 °C" },
+  { label: "Moons",           value: "Phobos · Deimos" },
+];
+
+const descriptions = [
+  "Bathed in a cold, reddish glow, Mars stands as a silent and distant world on the edge of possibility. Its barren landscapes, carved by ancient rivers and vast canyons, hint at a past that may once have been warmer and wetter.",
+  "Today, it endures harsh conditions — thin atmosphere, extreme temperatures, and relentless radiation shaping its desolate surface. Yet among all the planets, Mars remains the most promising candidate for future exploration and human settlement.",
+  "It is not merely a symbol of mystery, but a potential next step in humanity's journey beyond Earth.",
 ];
 
 export default function MarsSection() {
@@ -107,7 +109,7 @@ export default function MarsSection() {
   const surfaceY = (1 - prog) * 38;
 
   return (
-    <section ref={sectionRef} className="mars-section">
+    <section ref={sectionRef} id="section-mars" className="mars-section">
       <div className="mars-starfield" />
 
       <div
@@ -157,12 +159,26 @@ export default function MarsSection() {
           pointerEvents: (isMobile || storyOpacity > 0.05) ? "all" : "none",
         }}
       >
-        <h2 className="mars-arc-title">OUR NEW HOME</h2>
+        <div className="mars-story__inner">
+          <div className="mars-story__left">
+            <span className="mars-story__kicker">Fourth Planet · Solar System</span>
+            <h2 className="mars-arc-title">OUR<br />NEW HOME</h2>
+            <div className="mars-story__divider" />
+            <div className="mars-story__stats">
+              {stats.map((s) => (
+                <div key={s.label} className="mars-story__stat">
+                  <span className="mars-story__stat-label">{s.label}</span>
+                  <span className="mars-story__stat-value">{s.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-        <div className="mars-description">
-          {descriptionLines.map((line) => (
-            <p key={line}>{line}</p>
-          ))}
+          <div className="mars-story__right">
+            {descriptions.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
         </div>
       </div>
     </section>

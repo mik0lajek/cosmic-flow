@@ -134,7 +134,7 @@ export default function SunSection() {
   const factsOpacity = Math.max(0, (prog - 0.75) / 0.25);
 
   return (
-    <section ref={sectionRef} className="sun-section">
+    <section ref={sectionRef} id="section-sun" className="sun-section">
       <div className="sun-atmosphere" />
 
       <p className="sun-label" style={{ opacity: isMobile ? 0 : titleOpacity }}>

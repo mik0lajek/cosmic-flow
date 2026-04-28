@@ -6,6 +6,17 @@
   background: #000;
 }
 
+.mercury-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #000 0%, transparent 22%, transparent 78%, #000 100%),
+    linear-gradient(90deg, rgba(0,0,0,0.55) 0%, transparent 28%);
+}
+
 .mercury-title {
   position: absolute;
   top: 3%;
@@ -68,6 +79,30 @@
   will-change: opacity;
 }
 
+.mercury-planet-stats::before {
+  content: "";
+  position: absolute;
+  inset: -55% -50%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.55) 42%, transparent 72%);
+  filter: blur(14px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.mercury-stats__kicker {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(210, 165, 80, 1);
+  margin-bottom: clamp(8px, 1.2vh, 14px);
+  text-shadow:
+    0 2px 14px rgba(0, 0, 0, 1),
+    0 0 30px rgba(0, 0, 0, 1),
+    0 0 50px rgba(0, 0, 0, 0.95);
+}
+
 .mercury-radius {
   display: flex;
   flex-direction: column;
@@ -81,14 +116,14 @@
   font-weight: 900;
   letter-spacing: 0.3em;
   color: #fff;
-  text-shadow: 0 0 16px rgba(0, 0, 0, 1), 0 2px 8px rgba(0, 0, 0, 1);
+  text-shadow: 0 2px 14px rgba(0,0,0,1), 0 0 32px rgba(0,0,0,0.95);
 }
 
 .mercury-radius__value {
   font-size: clamp(11px, 1.2vw, 18px);
   letter-spacing: 0.22em;
-  color: rgba(255, 255, 255, 0.45);
-  text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 2px 12px rgba(0,0,0,1), 0 0 24px rgba(0,0,0,0.9);
 }
 
 .mercury-stat-divider {
@@ -111,14 +146,14 @@
   font-weight: 700;
   letter-spacing: 0.28em;
   color: #fff;
-  text-shadow: 0 0 12px rgba(0, 0, 0, 1), 0 2px 6px rgba(0, 0, 0, 1);
+  text-shadow: 0 2px 14px rgba(0,0,0,1), 0 0 32px rgba(0,0,0,0.95);
 }
 
 .mercury-stat__value {
   font-size: clamp(10px, 1.1vw, 16px);
   letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.5);
-  text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 2px 12px rgba(0,0,0,1), 0 0 24px rgba(0,0,0,0.9);
 }
 
 .mercury-description {
@@ -133,18 +168,18 @@
 }
 
 .mercury-description__line {
-  font-size: clamp(11px, 1.3vw, 20px);
-  line-height: 1.85;
+  font-size: clamp(12px, 1.2vw, 17px);
+  font-weight: 400;
+  line-height: 1.82;
   letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 0 0 2px 0;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0 0 clamp(12px, 1.8vh, 20px) 0;
   display: block;
+  text-shadow: 0 2px 12px rgba(0,0,0,1), 0 0 28px rgba(0,0,0,0.9);
 }
 
-.mercury-description__line--accent {
-  font-style: italic;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.88);
+.mercury-description__line:last-child {
+  margin-bottom: 0;
 }
 
 @media (max-width: 1200px) and (min-width: 769px) {

@@ -4,6 +4,7 @@ import MercurySection from "@/components/sections/Mercury/Mercury";
 import VenusSection from "@/components/sections/Venus/Venus";
 import EarthMoonSection from "@/components/sections/EarthMoon/EarthMoon";
 import MarsSection from "@/components/sections/Mars/Mars";
+import ColonySection from "@/components/sections/Colony/Colony";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <VenusSection />
       <EarthMoonSection />
       <MarsSection />
+      <ColonySection />
     </>
   );
 }
