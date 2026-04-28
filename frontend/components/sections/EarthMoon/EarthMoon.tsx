@@ -70,7 +70,7 @@ export default function EarthMoonSection() {
     let targetProg = 0;
     let rafId: number | null = null;
 
-    const ease = (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    const ease = (t: number) => t * t * t * (t * (6 * t - 15) + 10);
 
     const animate = (ts: number) => {
       if (!startTime) startTime = ts;
@@ -161,10 +161,9 @@ export default function EarthMoonSection() {
     }
   };
 
-  const earthW = 78 + prog * 27;
-  const earthMin = 520 + prog * 240;
-  const earthL = -10 + prog * 60;
-  const earthB = -36 - prog * 10;
+  const earthScale = 0.74 + prog * 0.26;
+  const earthDx = -21 * (1 - prog);
+  const earthDy = -10 * (1 - prog);
   const titleOpacity = Math.max(0, (prog - 0.5) / 0.5);
   const kickerOpacity = Math.max(0, 1 - prog / 0.4);
   const orbitOpacity = Math.max(0, 1 - prog * 2);
@@ -172,7 +171,6 @@ export default function EarthMoonSection() {
   const finalBgOpacity = Math.min(1, Math.max(0, (prog - 0.35) / 0.65));
   const infoOpacity = Math.min(1, Math.max(0, (prog - 0.68) / 0.32));
   const infoY = 28 - infoOpacity * 28;
-  const moonOpacity = Math.max(0, 1 - prog * 2);
   const moonDx = prog * -20;
   const moonDy = prog * -5;
   const earthGlowInner = 42 + prog * 12;
@@ -181,16 +179,11 @@ export default function EarthMoonSection() {
   const earthGlowSecondary = 0.2 + prog * 0.04;
 
   const earthStyle = isMobile ? undefined : {
-    left: `${earthL}vw`,
-    bottom: `${earthB}vh`,
-    width: `clamp(${earthMin}px, ${earthW}vw, 1560px)`,
-    height: `clamp(${earthMin}px, ${earthW}vw, 1560px)`,
-    transform: `translate3d(calc(${-50 * prog}% + var(--earth-x)), var(--earth-y), 0)`,
+    transform: `translate3d(calc(-50% + ${earthDx}vw + var(--earth-x)), calc(${earthDy}vh + var(--earth-y)), 0) scale(${earthScale})`,
     filter: `drop-shadow(0 0 ${earthGlowInner}px rgba(44, 134, 235, ${earthGlowPrimary})) drop-shadow(0 0 ${earthGlowOuter}px rgba(22, 92, 168, ${earthGlowSecondary}))`,
   };
 
   const moonStyle = isMobile ? undefined : {
-    opacity: moonOpacity,
     transform: `translate3d(calc(${moonDx}vw + var(--moon-x)), calc(${moonDy}vh + var(--moon-y)), 0)`,
   };
 

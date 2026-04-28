@@ -119,16 +119,17 @@
 
 .earth-moon-earth {
   position: absolute;
-  left: -10vw;
-  bottom: -36vh;
+  left: 50%;
+  bottom: -46vh;
   z-index: 5;
-  width: clamp(520px, 78vw, 1160px);
-  height: clamp(520px, 78vw, 1160px);
-  transform: translate3d(var(--earth-x), var(--earth-y), 0);
+  width: clamp(760px, 105vw, 1560px);
+  height: clamp(760px, 105vw, 1560px);
+  transform: translate3d(calc(-50% + var(--earth-x)), var(--earth-y), 0) scale(1);
+  transform-origin: center center;
   filter:
     drop-shadow(0 0 42px rgba(44, 134, 235, 0.36))
     drop-shadow(0 0 140px rgba(22, 92, 168, 0.2));
-  will-change: left, bottom, width, height, transform;
+  will-change: transform, filter;
 }
 
 .earth-moon-earth__img {
@@ -139,7 +140,7 @@
   position: absolute;
   right: 14vw;
   top: 20vh;
-  z-index: 9;
+  z-index: 4;
   width: clamp(130px, 16vw, 250px);
   height: clamp(130px, 16vw, 250px);
   border-radius: 50%;
