@@ -1,8 +1,7 @@
 .site-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  width: 100%;
+  flex-shrink: 0;
   z-index: 10;
   display: flex;
   align-items: center;
