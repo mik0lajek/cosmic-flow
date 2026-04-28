@@ -23,6 +23,14 @@ const descriptionLines = [
   { text: "but the foundation of our cosmic neighborhood.", accent: true },
 ];
 
+const SUN_RADIUS_KM = 695700;
+
+const formatRadius = (radius: number) =>
+  Math.round(radius).toLocaleString("en-US", {
+    minimumIntegerDigits: 6,
+    maximumFractionDigits: 0,
+  });
+
 export default function SunSection() {
   const progressRef  = useRef(0);
   const animatingRef = useRef(false);
@@ -45,7 +53,7 @@ export default function SunSection() {
       return () => cancelAnimationFrame(mobileRafId);
     }
 
-    const DURATION = 1200;
+    const DURATION = 2200;
     let startTime: number | null = null;
     let startProg = 0;
     let targetProg = 0;
@@ -132,6 +140,8 @@ export default function SunSection() {
   const scale        = 0.75 + prog * 1.35;
   const titleOpacity = Math.max(0, 1 - prog / 0.3);
   const factsOpacity = Math.max(0, (prog - 0.75) / 0.25);
+  const radiusValue  = formatRadius(SUN_RADIUS_KM * (isMobile ? 1 : prog));
+  const radiusOpacity = isMobile ? 1 : Math.min(1, prog / 0.35);
 
   return (
     <section ref={sectionRef} id="section-sun" className="sun-section">
@@ -153,16 +163,23 @@ export default function SunSection() {
       <div
         className="sun-overlay"
         style={{
-          opacity: isMobile ? 1 : factsOpacity,
           pointerEvents: (isMobile || factsOpacity > 0.05) ? "all" : "none",
         }}
       >
-        <div className="sun-overlay__header">
+        <div className="sun-overlay__header" style={{ opacity: radiusOpacity }}>
           <h2 className="sun-overlay__radius">RADIUS</h2>
-          <span className="sun-overlay__radius-value">695,700 KM</span>
+          <span className="sun-overlay__radius-value">{radiusValue} KM</span>
+          <div
+            className="sun-radius-line"
+            aria-hidden="true"
+            style={{
+              opacity: isMobile ? 0 : 1,
+              transform: `scaleX(${isMobile ? 1 : prog})`,
+            }}
+          />
         </div>
 
-        <div className="sun-content">
+        <div className="sun-content" style={{ opacity: isMobile ? 1 : factsOpacity }}>
           <div className="sun-stats">
             {stats.map((s) => (
               <div key={s.label} className="sun-stat">

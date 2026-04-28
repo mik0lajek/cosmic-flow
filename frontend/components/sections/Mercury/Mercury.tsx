@@ -144,14 +144,14 @@ export default function MercurySection() {
 
       <div className="mercury-title mercury-title--back">
         <span className="mercury-title__chunk mercury-title__chunk--hidden" style={{ transform: `translateX(${merX}vw)` }}>MER</span>
-        <span className="mercury-title__chunk"                              style={{ transform: `translateY(${curY}vh)` }}>CUR</span>
-        <span className="mercury-title__chunk mercury-title__chunk--hidden" style={{ transform: `translateX(${yX}vw)` }}>Y</span>
+        <span className="mercury-title__chunk"                              style={{ transform: `translateY(${curY}vh)` }}>CU</span>
+        <span className="mercury-title__chunk mercury-title__chunk--hidden" style={{ transform: `translateX(${yX}vw)` }}>RY</span>
       </div>
 
       <div className="mercury-title mercury-title--front">
         <span className="mercury-title__chunk"                              style={{ transform: `translateX(${merX}vw)` }}>MER</span>
-        <span className="mercury-title__chunk mercury-title__chunk--hidden" style={{ transform: `translateY(${curY}vh)` }}>CUR</span>
-        <span className="mercury-title__chunk"                              style={{ transform: `translateX(${yX}vw)` }}>Y</span>
+        <span className="mercury-title__chunk mercury-title__chunk--hidden" style={{ transform: `translateY(${curY}vh)` }}>CU</span>
+        <span className="mercury-title__chunk"                              style={{ transform: `translateX(${yX}vw)` }}>RY</span>
       </div>
 
       <div className="mercury-planet-wrapper" style={planetTransform}>
