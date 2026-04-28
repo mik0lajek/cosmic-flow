@@ -39,11 +39,6 @@ body {
   font-family: var(--font-playfair), serif;
 }
 
-#header {
-  font-size: 128px;
-  line-height: 100px;
-}
-
 h1 {
   font-size: 48px;
   line-height: 58px;
