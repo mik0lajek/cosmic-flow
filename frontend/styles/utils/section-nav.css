@@ -21,7 +21,7 @@
   height: 26px;
   margin-right: 2.5px;
   background: rgba(255, 255, 255, 0.12);
-  transition: background 0.3s ease;
+  transition: background var(--transition-fast);
 }
 
 .section-nav--open .section-nav__connector {
@@ -60,26 +60,26 @@
 .section-nav__item--active .section-nav__dot {
   width: 8px;
   height: 8px;
-  background: var(--dot-color, rgba(255, 255, 255, 0.9));
-  border-color: var(--dot-color, rgba(255, 255, 255, 0.9));
+  background: var(--dot-color, var(--text-primary));
+  border-color: var(--dot-color, var(--text-primary));
   box-shadow:
-    0 0 6px var(--dot-color, rgba(255, 255, 255, 0.6)),
+    0 0 6px  var(--dot-color, rgba(255, 255, 255, 0.6)),
     0 0 16px var(--dot-color, rgba(255, 255, 255, 0.3)),
     0 0 32px var(--dot-color, rgba(255, 255, 255, 0.15));
 }
 
 .section-nav__label {
-  font-family: var(--font-playfair), serif;
+  font-family: var(--font-serif);
   font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.22em;
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-muted);
   white-space: nowrap;
   user-select: none;
   opacity: 0;
   transform: translateX(8px);
-  transition: opacity 0.28s ease, transform 0.28s ease, color 0.28s ease;
+  transition: opacity var(--transition-fast), transform var(--transition-fast), color var(--transition-fast);
   pointer-events: none;
 }
 
@@ -90,14 +90,13 @@
 }
 
 .section-nav--open .section-nav__item--active .section-nav__label {
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--text-primary);
 }
 
 .section-nav--open .section-nav__item:hover .section-nav__label {
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* stagger label reveal */
 .section-nav__item-wrap:nth-child(1) .section-nav__label { transition-delay: 0s; }
 .section-nav__item-wrap:nth-child(2) .section-nav__label { transition-delay: 0.03s; }
 .section-nav__item-wrap:nth-child(3) .section-nav__label { transition-delay: 0.06s; }
@@ -105,3 +104,9 @@
 .section-nav__item-wrap:nth-child(5) .section-nav__label { transition-delay: 0.12s; }
 .section-nav__item-wrap:nth-child(6) .section-nav__label { transition-delay: 0.15s; }
 .section-nav__item-wrap:nth-child(7) .section-nav__label { transition-delay: 0.18s; }
+
+@media (max-width: 768px) {
+  .section-nav {
+    display: none;
+  }
+}

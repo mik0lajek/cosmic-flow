@@ -76,7 +76,6 @@ export default function SpaceFlowReveal() {
       } else {
         animatingRef.current = false;
         doneRef.current = targetProgress >= 1;
-        canvas.style.pointerEvents = doneRef.current ? "none" : "all";
       }
     };
 
@@ -94,7 +93,6 @@ export default function SpaceFlowReveal() {
       animatingRef.current = false;
       doneRef.current = false;
       progressRef.current = 0;
-      canvas.style.pointerEvents = "all";
       draw(0);
     };
 
@@ -197,7 +195,7 @@ export default function SpaceFlowReveal() {
         position: "absolute",
         inset: 0,
         zIndex: 20,
-        pointerEvents: "all",
+        pointerEvents: "none",
         width: "100%",
         height: "100%",
       }}

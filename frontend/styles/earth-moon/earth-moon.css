@@ -12,7 +12,7 @@
   background:
     radial-gradient(ellipse 44% 36% at 74% 28%, rgba(203, 224, 255, 0.12), transparent 68%),
     radial-gradient(ellipse 40% 36% at 24% 70%, rgba(54, 137, 216, 0.12), transparent 70%),
-    #000;
+    var(--color-bg);
 }
 
 .earth-moon-section::after {
@@ -22,7 +22,7 @@
   z-index: 12;
   pointer-events: none;
   background:
-    linear-gradient(180deg, #000 0%, transparent 24%, transparent 58%, rgba(0,0,0,0.7) 78%, #000 96%),
+    linear-gradient(180deg, var(--color-bg) 0%, transparent 24%, transparent 58%, rgba(0, 0, 0, 0.7) 78%, var(--color-bg) 96%),
     linear-gradient(90deg, rgba(0, 0, 0, 0.56) 0%, transparent 46%, rgba(0, 0, 0, 0.36) 100%);
 }
 
@@ -35,10 +35,10 @@
   transform: translate3d(var(--field-x), var(--field-y), 0);
   will-change: opacity, transform;
   background:
-    radial-gradient(circle at 8% 22%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.5px),
+    radial-gradient(circle at  8% 22%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.5px),
     radial-gradient(circle at 18% 66%, rgba(167, 211, 255, 0.54) 0 1px, transparent 1.5px),
     radial-gradient(circle at 48% 14%, rgba(255, 255, 255, 0.46) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.50) 0 1px, transparent 1.5px),
     radial-gradient(circle at 74% 76%, rgba(167, 211, 255, 0.38) 0 1px, transparent 1.5px);
 }
 
@@ -48,8 +48,8 @@
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 60% 44% at 50% 80%, rgba(24, 121, 214, 0.2), transparent 70%),
-    #000;
+    radial-gradient(ellipse 60% 44% at 50% 80%, var(--planet-earth-tint), transparent 70%),
+    var(--color-bg);
   will-change: opacity;
 }
 
@@ -87,10 +87,10 @@
   z-index: 14;
   margin: 0;
   font-size: clamp(36px, 8vw, 116px);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.92);
+  font-weight: var(--fw-black);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
   pointer-events: none;
   text-shadow:
     0 0 34px rgba(80, 162, 255, 0.2),
@@ -106,10 +106,10 @@
   margin: 0;
   transform: translateX(-50%);
   font-size: clamp(54px, 12vw, 178px);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.92);
+  font-weight: var(--fw-black);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
   pointer-events: none;
   text-shadow:
     0 0 34px rgba(80, 162, 255, 0.2),
@@ -201,7 +201,7 @@
   content: "";
   position: absolute;
   inset: -80% -6%;
-  background: radial-gradient(ellipse 100% 80% at 50% 85%, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.65) 38%, transparent 68%);
+  background: radial-gradient(ellipse 100% 80% at 50% 85%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.65) 38%, transparent 68%);
   filter: blur(18px);
   z-index: -1;
   pointer-events: none;
@@ -216,22 +216,15 @@
 .earth-moon-description p {
   margin: 0;
   font-size: clamp(12px, 1vw, 15px);
-  font-weight: 400;
-  line-height: 1.82;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.80);
-  text-shadow:
-    0 2px 12px rgba(0, 0, 0, 1),
-    0 0 28px rgba(0, 0, 0, 0.9);
+  font-weight: var(--fw-regular);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-body);
+  color: var(--text-secondary);
+  text-shadow: var(--shadow-text);
 }
 
-.earth-moon-description--left {
-  text-align: left;
-}
-
-.earth-moon-description--right {
-  text-align: right;
-}
+.earth-moon-description--left  { text-align: left; }
+.earth-moon-description--right { text-align: right; }
 
 .earth-moon-description--right p:last-child {
   color: rgba(216, 235, 255, 0.78);
@@ -250,7 +243,7 @@
   content: "";
   position: absolute;
   inset: -55% -45%;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.62) 44%, transparent 72%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.62) 44%, transparent 72%);
   filter: blur(18px);
   z-index: -1;
   pointer-events: none;
@@ -259,14 +252,11 @@
 .earth-moon-details__kicker {
   display: block;
   font-size: 8px;
-  letter-spacing: 0.32em;
+  letter-spacing: var(--tracking-kicker);
   text-transform: uppercase;
-  color: rgba(190, 225, 255, 1);
+  color: var(--planet-earth-accent);
   margin-bottom: clamp(10px, 1.4vh, 16px);
-  text-shadow:
-    0 2px 14px rgba(0, 0, 0, 1),
-    0 0 30px rgba(0, 0, 0, 1),
-    0 0 50px rgba(0, 0, 0, 0.95);
+  text-shadow: var(--shadow-text-strong);
 }
 
 .earth-moon-details__divider {
@@ -282,7 +272,7 @@
   align-items: baseline;
   gap: 12px;
   padding: clamp(7px, 1.1vh, 12px) 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--border-subtle);
   min-width: 0;
 }
 
@@ -292,9 +282,9 @@
 
 .earth-moon-detail__label {
   font-size: 8px;
-  font-weight: 400;
+  font-weight: var(--fw-regular);
   letter-spacing: 0.24em;
-  color: rgba(255, 255, 255, 0.52);
+  color: var(--text-muted);
   text-transform: uppercase;
   flex-shrink: 0;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
@@ -302,9 +292,9 @@
 
 .earth-moon-detail__value {
   font-size: clamp(10px, 0.9vw, 13px);
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   letter-spacing: 0.1em;
-  color: rgba(216, 235, 255, 0.84);
+  color: var(--planet-earth-value);
   text-transform: uppercase;
   text-align: right;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
@@ -369,8 +359,8 @@
 
   .earth-moon-description p {
     font-size: clamp(10px, 2.8vw, 13px);
-    font-weight: 400;
-    line-height: 1.55;
+    font-weight: var(--fw-regular);
+    line-height: var(--leading-body);
   }
 
   .earth-moon-description--left,
@@ -384,10 +374,10 @@
   }
 
   .earth-moon-detail__label {
-    font-weight: 700;
+    font-weight: var(--fw-bold);
   }
 
   .earth-moon-detail__value {
-    font-weight: 400;
+    font-weight: var(--fw-regular);
   }
 }

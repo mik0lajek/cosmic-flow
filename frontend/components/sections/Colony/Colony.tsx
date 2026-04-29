@@ -4,10 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import "../../../styles/colony/colony.css";
 import Footer from "../../Footer";
 
-// ─── Data interfaces ───────────────────────────────────────────────────────────
-// To connect live data: fetch from your API and pass the result as the `data`
-// prop to <ColonySection data={liveData} />.
-
 export interface MissionFunding {
   raised:     number;
   goal:       number;
@@ -29,19 +25,18 @@ export interface MissionData {
   duration:   string;
 }
 
-// ─── Mockup data ───────────────────────────────────────────────────────────────
 const MOCKUP_DATA: MissionData = {
   funding: {
-    raised:     2_847_293,
-    goal:       5_000_000,
-    supporters: 4_821,
+    raised:     284_729_300,
+    goal:       500_000_000,
+    supporters: 482_100,
   },
   topDonors: [
-    { rank: 1, name: "E. Musk",      amount: 250_000 },
-    { rank: 2, name: "SpaceX Corp.", amount: 180_000 },
-    { rank: 3, name: "Anonymous",    amount:  95_000 },
-    { rank: 4, name: "NASA Found.",  amount:  72_500 },
-    { rank: 5, name: "C. Hadfield",  amount:  48_200 },
+    { rank: 1, name: "E. Musk",      amount: 25_000_000 },
+    { rank: 2, name: "SpaceX Corp.", amount: 18_000_000 },
+    { rank: 3, name: "Anonymous",    amount:  9_500_000 },
+    { rank: 4, name: "NASA Found.",  amount:  7_250_000 },
+    { rank: 5, name: "C. Hadfield",  amount:  4_820_000 },
   ],
   launchYear: "2040",
   colonists:  "1,000",
@@ -49,7 +44,6 @@ const MOCKUP_DATA: MissionData = {
   duration:   "10 Years",
 };
 
-// ─── Helpers ───────────────────────────────────────────────────────────────────
 function formatUSD(n: number): string {
   return "$" + n.toLocaleString("en-US");
 }
@@ -58,7 +52,6 @@ function padRank(n: number): string {
   return String(n).padStart(2, "0");
 }
 
-// ─── Component ─────────────────────────────────────────────────────────────────
 interface Props {
   data?: MissionData;
 }
@@ -95,7 +88,6 @@ export default function ColonySection({ data = MOCKUP_DATA }: Props) {
 
       <div className={`colony-content${animated ? " colony-content--animated" : ""}`}>
 
-        {/* ── Left column ── */}
         <div className="colony-left">
           <span className="colony-kicker">Cosmic Flow · Mars Initiative</span>
 
@@ -106,6 +98,12 @@ export default function ColonySection({ data = MOCKUP_DATA }: Props) {
             Join the mission to make Mars our second home.
           </p>
 
+          <button className="colony-cta" onClick={() => {}}>
+            Support the Mission
+          </button>
+        </div>
+
+        <div className="colony-center">
           <div className="colony-stats">
             {missionStats.map(({ label, value }, i) => (
               <div key={label} className="colony-stat">
@@ -117,14 +115,8 @@ export default function ColonySection({ data = MOCKUP_DATA }: Props) {
               </div>
             ))}
           </div>
-
-          {/* onClick: wire up your donation/payment handler here */}
-          <button className="colony-cta" onClick={() => {}}>
-            Support the Mission
-          </button>
         </div>
 
-        {/* ── Right column ── */}
         <div className="colony-right">
           <div className="colony-donors">
             <span className="colony-donors__label">Top Donors</span>
@@ -140,7 +132,6 @@ export default function ColonySection({ data = MOCKUP_DATA }: Props) {
           </div>
         </div>
 
-        {/* ── Full-width funding bar ── */}
         <div className="colony-funding">
           <div className="colony-funding__header">
             <span className="colony-funding__label">Mission Funding</span>

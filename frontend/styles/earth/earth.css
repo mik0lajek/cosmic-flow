@@ -4,8 +4,8 @@
   height: 100vh;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 60% 44% at 50% 80%, rgba(24, 121, 214, 0.2), transparent 70%),
-    #000;
+    radial-gradient(ellipse 60% 44% at 50% 80%, var(--planet-earth-tint), transparent 70%),
+    var(--color-bg);
 }
 
 .earth-section::after {
@@ -15,7 +15,7 @@
   z-index: 8;
   pointer-events: none;
   background:
-    linear-gradient(180deg, #000 0%, transparent 28%, transparent 76%, #000 100%),
+    linear-gradient(180deg, var(--color-bg) 0%, transparent 28%, transparent 76%, var(--color-bg) 100%),
     linear-gradient(90deg, rgba(0, 0, 0, 0.56) 0%, transparent 46%, rgba(0, 0, 0, 0.36) 100%);
 }
 
@@ -27,10 +27,10 @@
   margin: 0;
   transform: translateX(-50%);
   font-size: clamp(54px, 12vw, 178px);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.92);
+  font-weight: var(--fw-black);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
   pointer-events: none;
   text-shadow:
     0 0 34px rgba(80, 162, 255, 0.2),
@@ -46,7 +46,7 @@
   height: clamp(760px, 105vw, 1560px);
   transform: translateX(-50%);
   filter:
-    drop-shadow(0 0 54px rgba(44, 134, 235, 0.4))
+    drop-shadow(0 0 54px var(--planet-earth-glow))
     drop-shadow(0 0 170px rgba(22, 92, 168, 0.24));
 }
 
@@ -76,13 +76,11 @@
 .earth-description p {
   margin: 0;
   font-size: clamp(13px, 1.1vw, 18px);
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   line-height: 1.56;
   letter-spacing: 0.03em;
-  color: rgba(255, 255, 255, 0.74);
-  text-shadow:
-    0 2px 10px rgba(0, 0, 0, 1),
-    0 0 26px rgba(0, 0, 0, 0.82);
+  color: var(--text-secondary);
+  text-shadow: var(--shadow-text);
 }
 
 .earth-description--left {
@@ -96,7 +94,7 @@
 }
 
 .earth-description--right p:last-child {
-  color: rgba(216, 235, 255, 0.86);
+  color: var(--planet-earth-value);
   font-style: italic;
 }
 
@@ -129,13 +127,11 @@
 
 .earth-detail__label {
   font-size: clamp(10px, 1vw, 15px);
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: rgba(255, 255, 255, 0.94);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-primary);
   text-transform: uppercase;
-  text-shadow:
-    0 2px 12px rgba(0, 0, 0, 1),
-    0 0 22px rgba(0, 0, 0, 0.9);
+  text-shadow: var(--shadow-text);
 }
 
 .earth-detail__value {
@@ -143,9 +139,7 @@
   letter-spacing: 0.08em;
   color: rgba(216, 235, 255, 0.66);
   text-transform: uppercase;
-  text-shadow:
-    0 2px 12px rgba(0, 0, 0, 1),
-    0 0 22px rgba(0, 0, 0, 0.9);
+  text-shadow: var(--shadow-text);
 }
 
 @media (max-width: 768px) {
@@ -174,8 +168,8 @@
 
   .earth-description p {
     font-size: clamp(10px, 2.8vw, 13px);
-    font-weight: 400;
-    line-height: 1.55;
+    font-weight: var(--fw-regular);
+    line-height: var(--leading-body);
   }
 
   .earth-description--left,
@@ -196,6 +190,6 @@
   .earth-detail__label,
   .earth-detail__value {
     font-size: clamp(9px, 2.7vw, 12px);
-    letter-spacing: 0.12em;
+    letter-spacing: var(--tracking-stat);
   }
 }

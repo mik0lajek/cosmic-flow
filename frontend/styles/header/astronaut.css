@@ -1,7 +1,7 @@
 .astronaut-wrapper {
   position: absolute;
   z-index: 5;
-  width: clamp(170px, 24vw, 370px);
+  width: clamp(260px, 34vw, 520px);
   pointer-events: none;
   animation: astronaut-fly 20000ms linear 800ms infinite backwards;
 }

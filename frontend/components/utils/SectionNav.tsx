@@ -8,7 +8,7 @@ const sections = [
   { id: "section-sun",        label: "Sun",           color: "rgba(251,191,36,0.9)"    },
   { id: "section-mercury",    label: "Mercury",       color: "rgba(148,163,184,0.9)"   },
   { id: "section-venus",      label: "Venus",         color: "rgba(212,167,106,0.9)"   },
-  { id: "section-earth-moon", label: "Earth & Moon",  color: "rgba(96,165,250,0.9)"    },
+  { id: "section-earth-moon", label: "Earth",  color: "rgba(96,165,250,0.9)"    },
   { id: "section-mars",       label: "Mars",          color: "rgba(249,115,22,0.9)"    },
   { id: "section-colony",     label: "Mission",       color: "rgba(220,90,36,0.9)"     },
 ];

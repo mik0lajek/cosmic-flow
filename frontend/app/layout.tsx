@@ -2,6 +2,7 @@ import type { Viewport } from "next";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import SectionNav from "@/components/utils/SectionNav";
+import HamburgerNav from "@/components/utils/HamburgerNav";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans">
         {children}
         <SectionNav />
+        <HamburgerNav />
       </body>
      
     </html>

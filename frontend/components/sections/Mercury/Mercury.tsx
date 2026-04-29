@@ -6,10 +6,10 @@ import MERCURY from "../../../Images/sections/mercury.png";
 import "../../../styles/mercury/mercury.css";
 
 const stats = [
-  { label: "MASS",               value: "(1.988475±0.000092)×10³⁰ kg" },
-  { label: "AGE",                value: "4.6 BILLION YEARS"            },
-  { label: "DENSITY",            value: "1.408 g/cm³"                  },
-  { label: "DISTANCE FROM EARTH", value: "149.6 million km"            },
+  { label: "MASS",              value: "3.285 × 10²³ kg"  },
+  { label: "DAY LENGTH",        value: "58.6 EARTH DAYS"  },
+  { label: "DENSITY",           value: "5.43 g/cm³"       },
+  { label: "DISTANCE FROM SUN", value: "57.9 million km"  },
 ];
 
 const descriptions = [

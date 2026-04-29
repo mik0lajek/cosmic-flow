@@ -18,7 +18,7 @@
   z-index: 2;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, transparent 34%, rgba(0, 0, 0, 0.34) 72%, #000 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, transparent 34%, rgba(0, 0, 0, 0.34) 72%, var(--color-bg) 100%),
     linear-gradient(90deg, rgba(0, 0, 0, 0.34) 0%, transparent 48%, rgba(0, 0, 0, 0.26) 100%);
 }
 
@@ -34,10 +34,10 @@
   max-width: min-content;
   margin: 0;
   font-size: clamp(58px, 10vw, 128px);
-  font-weight: 900;
-  line-height: 0.82;
+  font-weight: var(--fw-black);
+  line-height: var(--leading-tight);
   letter-spacing: 0;
-  color: #fff;
+  color: var(--text-primary);
   overflow-wrap: normal;
   pointer-events: none;
 }
@@ -51,7 +51,7 @@
 }
 
 .header-shadow {
-  text-shadow: 0 4px 9.8px rgba(0, 0, 0, 1);
+  text-shadow: var(--shadow-text-header);
 }
 
 @media (max-width: 900px) {
@@ -81,7 +81,7 @@
 
   .discover-header::after {
     background:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.06) 0%, transparent 30%, rgba(0, 0, 0, 0.42) 68%, #000 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.06) 0%, transparent 30%, rgba(0, 0, 0, 0.42) 68%, var(--color-bg) 100%),
       linear-gradient(90deg, rgba(0, 0, 0, 0.28) 0%, transparent 62%);
   }
 
@@ -98,11 +98,11 @@
     width: 31px;
     max-width: 31px;
     font-size: 48px;
-    font-weight: 400;
+    font-weight: var(--fw-regular);
     line-height: 58px;
     overflow-wrap: anywhere;
     word-break: break-all;
-    text-shadow: 0 4px 9.8px rgba(0, 0, 0, 1) !important;
+    text-shadow: var(--shadow-text-header) !important;
   }
 
   #section-start .discover-scroll {

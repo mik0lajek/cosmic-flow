@@ -10,12 +10,14 @@ export default function Home() {
   return (
     <>
       <Header />
-      <SunSection />
-      <MercurySection />
-      <VenusSection />
-      <EarthMoonSection />
-      <MarsSection />
-      <ColonySection />
+      <main>
+        <SunSection />
+        <MercurySection />
+        <VenusSection />
+        <EarthMoonSection />
+        <MarsSection />
+        <ColonySection />
+      </main>
     </>
   );
 }
