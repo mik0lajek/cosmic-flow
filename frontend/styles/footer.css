@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 14px;
   padding: clamp(14px, 2vh, 22px) clamp(24px, 4vw, 56px);
   border-top: 1px solid var(--border-subtle);
   pointer-events: none;
@@ -32,6 +33,24 @@
   color: var(--text-subtle);
 }
 
+.site-footer__link {
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--planet-sun-gold);
+  text-decoration: none;
+  pointer-events: auto;
+  transition: color var(--transition-ui), text-shadow var(--transition-ui);
+}
+
+.site-footer__link:hover,
+.site-footer__link:focus-visible {
+  color: var(--text-primary);
+  text-shadow: 0 0 16px rgba(255, 190, 80, 0.42);
+  outline: none;
+}
+
 @media (max-width: 768px) {
   .site-footer {
     flex-direction: column;
@@ -47,7 +66,8 @@
   }
 
   .site-footer__copy,
-  .site-footer__authors {
+  .site-footer__authors,
+  .site-footer__link {
     font-size: 7px;
     line-height: 1.1;
   }

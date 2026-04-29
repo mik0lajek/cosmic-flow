@@ -94,7 +94,7 @@ export default function ColonySection({ data = MOCKUP_DATA }: Props) {
           <h2 className="colony-title">COLONIZE<br />MARS</h2>
 
           <p className="colony-tagline">
-            Humanity's next chapter begins with a single step beyond Earth.
+            Humanity&apos;s next chapter begins with a single step beyond Earth.
             Join the mission to make Mars our second home.
           </p>
 
