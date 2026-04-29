@@ -7,6 +7,10 @@
 .solar-model-section {
   --solar-tilt-x: 0deg;
   --solar-tilt-y: 0deg;
+  --solar-belt-x: 0deg;
+  --solar-belt-y: 0deg;
+  --solar-belt-shift-x: 0px;
+  --solar-belt-shift-y: 0px;
   position: relative;
   width: 100%;
   height: 100svh;
@@ -59,6 +63,60 @@
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(ellipse 50% 38% at 50% 48%, rgba(86, 132, 210, 0.12), transparent 70%);
+}
+
+.solar-model-asteroid-belt {
+  position: absolute;
+  inset: clamp(22px, 5.5vmin, 68px);
+  z-index: 7;
+  pointer-events: none;
+  transform:
+    perspective(760px)
+    translate3d(var(--solar-belt-shift-x), var(--solar-belt-shift-y), 120px)
+    rotateX(var(--solar-belt-x))
+    rotateY(var(--solar-belt-y));
+  transform-style: preserve-3d;
+  transition: transform 0.45s ease-out;
+  will-change: transform;
+}
+
+.solar-model-asteroid {
+  position: absolute;
+  left: var(--asteroid-x);
+  top: var(--asteroid-y);
+  width: var(--asteroid-w);
+  height: var(--asteroid-h);
+  opacity: var(--asteroid-opacity);
+  filter: blur(var(--asteroid-blur)) drop-shadow(0 3px 9px rgba(0, 0, 0, 0.82));
+  transform: rotate(var(--asteroid-rotate));
+  border-radius: 46% 54% 38% 62% / 58% 34% 66% 42%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(120, 126, 132, 0.38), transparent 24%),
+    radial-gradient(circle at 72% 66%, rgba(4, 5, 8, 0.58), transparent 35%),
+    linear-gradient(135deg, rgba(56, 58, 64, 0.92), rgba(14, 15, 20, 0.96) 62%, rgba(2, 2, 4, 1));
+  box-shadow:
+    inset 2px 2px 4px rgba(180, 188, 196, 0.14),
+    inset -4px -5px 7px rgba(0, 0, 0, 0.62);
+}
+
+.solar-model-asteroid::before,
+.solar-model-asteroid::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.solar-model-asteroid::before {
+  inset: 16% 22% 48% 18%;
+  background: rgba(190, 196, 205, 0.1);
+  filter: blur(1px);
+}
+
+.solar-model-asteroid::after {
+  inset: 46% 14% 16% 54%;
+  background: rgba(0, 0, 0, 0.3);
+  filter: blur(1.5px);
 }
 
 .solar-model-header {
@@ -336,6 +394,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .solar-model-asteroid-belt,
   .solar-model-stage {
     transform: none;
     transition: none;
@@ -390,6 +449,10 @@
     gap: 8px 14px;
     font-size: 8px;
     letter-spacing: 0.18em;
+  }
+
+  .solar-model-asteroid-belt {
+    inset: clamp(16px, 5vw, 34px);
   }
 }
 
