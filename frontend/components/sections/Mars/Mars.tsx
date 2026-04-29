@@ -93,12 +93,40 @@ export default function MarsSection() {
       else if (isUp && progressRef.current > 0) { e.preventDefault(); trigger(0); }
     };
 
+    const resetIfLeft = () => {
+      if (progressRef.current <= 0.01) return;
+      const section = sectionRef.current;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight;
+      if (rect.bottom < vh * 0.1 || rect.top > vh * 0.9) {
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+        animatingRef.current = false;
+        progressRef.current = 0;
+        setProg(0);
+      }
+    };
+
+    let scrollEndTimer: ReturnType<typeof setTimeout> | null = null;
+    const handleScroll = () => {
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(resetIfLeft, 200);
+    };
+
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("scrollend", resetIfLeft, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scrollend", resetIfLeft);
+      window.removeEventListener("scroll", handleScroll);
       if (rafId) cancelAnimationFrame(rafId);
+      if (scrollEndTimer) clearTimeout(scrollEndTimer);
     };
   }, [isMobile]);
 
