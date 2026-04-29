@@ -256,7 +256,18 @@
   }
 
   .mercury-planet-stats::before {
-    display: none;
+    display: block;
+    inset: calc(var(--space-2xl) * -1) calc(var(--space-3xl) * -1);
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0.78) 0%,
+      rgba(0, 0, 0, 0.58) 42%,
+      rgba(0, 0, 0, 0.24) 68%,
+      transparent 100%
+    );
+    filter: blur(21px);
+    opacity: 1;
   }
 
   .mercury-stats__kicker {
