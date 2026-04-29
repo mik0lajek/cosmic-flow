@@ -1,6 +1,8 @@
+"use client";
+
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import type { CSSProperties, PointerEvent } from "react";
 import SUN from "../../Images/sections/sun.png";
 import MERCURY from "../../Images/sections/mercury.png";
 import VENUS from "../../Images/sections/venus.png";
@@ -17,6 +19,7 @@ type Body = {
   bodySize: string;
   duration: string;
   start: string;
+  depth: string;
   sourceHref: string;
 };
 
@@ -31,6 +34,7 @@ const planets: Body[] = [
     bodySize: "clamp(14px, 1.8vw, 22px)",
     duration: "15s",
     start: "292deg",
+    depth: "92px",
     sourceHref: placeholderSource,
   },
   {
@@ -41,6 +45,7 @@ const planets: Body[] = [
     bodySize: "clamp(22px, 2.8vw, 38px)",
     duration: "24s",
     start: "38deg",
+    depth: "54px",
     sourceHref: placeholderSource,
   },
   {
@@ -51,6 +56,7 @@ const planets: Body[] = [
     bodySize: "clamp(24px, 3vw, 40px)",
     duration: "34s",
     start: "158deg",
+    depth: "18px",
     sourceHref: placeholderSource,
   },
   {
@@ -61,6 +67,7 @@ const planets: Body[] = [
     bodySize: "clamp(18px, 2.4vw, 32px)",
     duration: "48s",
     start: "326deg",
+    depth: "-18px",
     sourceHref: placeholderSource,
   },
 ];
@@ -73,13 +80,36 @@ const moon: Body = {
   bodySize: "clamp(7px, 0.9vw, 11px)",
   duration: "7s",
   start: "54deg",
+  depth: "0px",
   sourceHref: placeholderSource,
 };
 
 export default function InnerSolarSystemModel() {
+  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    event.currentTarget.style.setProperty("--solar-tilt-x", `${y * -4.5}deg`);
+    event.currentTarget.style.setProperty("--solar-tilt-y", `${x * 6.5}deg`);
+  };
+
+  const handlePointerLeave = (event: PointerEvent<HTMLElement>) => {
+    event.currentTarget.style.setProperty("--solar-tilt-x", "0deg");
+    event.currentTarget.style.setProperty("--solar-tilt-y", "0deg");
+  };
+
   return (
     <main className="solar-model-page">
-      <section id="inner-solar-system-model" className="solar-model-section" aria-labelledby="solar-model-title">
+      <section
+        id="inner-solar-system-model"
+        className="solar-model-section"
+        aria-labelledby="solar-model-title"
+        onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
+      >
         <div className="solar-model-section__stars" aria-hidden="true" />
         <div className="solar-model-section__haze" aria-hidden="true" />
 
@@ -112,6 +142,7 @@ export default function InnerSolarSystemModel() {
                 "--orbit-size": planet.orbitSize,
                 "--orbit-duration": planet.duration,
                 "--orbit-start": planet.start,
+                "--orbit-depth": planet.depth,
               } as CSSProperties}
             >
               <div className="solar-model__runner">
