@@ -35,8 +35,20 @@
 @media (max-width: 768px) {
   .site-footer {
     flex-direction: column;
-    gap: 6px;
+    gap: 2px;
+    margin-top: auto;
     text-align: center;
-    padding: 14px 20px;
+    padding: 4px 20px 5px;
+  }
+
+  .site-footer__brand {
+    font-size: 8px;
+    line-height: 1.1;
+  }
+
+  .site-footer__copy,
+  .site-footer__authors {
+    font-size: 7px;
+    line-height: 1.1;
   }
 }

@@ -291,20 +291,32 @@
     top: 2.5%;
     bottom: auto;
     transform: translateX(-50%);
+    z-index: 12;
     font-size: clamp(36px, 13vw, 64px);
     letter-spacing: 0.08em;
+    color: #fff;
+    text-shadow:
+      0 3px 18px rgba(0, 0, 0, 1),
+      0 0 24px rgba(255, 174, 72, 0.32);
   }
 
   .venus-planet-shell {
-    top: 9%;
-    left: 50%;
+    top: 11%;
+    left: 74%;
     transform: translateX(-50%);
   }
 
   .venus-planet {
-    width: 74vmin;
-    height: 74vmin;
+    width: min(154vw, 615px);
+    height: min(154vw, 615px);
+    aspect-ratio: 1 / 1;
     animation: none;
+  }
+
+  .venus-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
   }
 
   .venus-panel {

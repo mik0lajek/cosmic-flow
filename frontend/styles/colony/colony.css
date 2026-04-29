@@ -39,7 +39,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .colony-section::after {
@@ -94,6 +94,7 @@
   gap: clamp(24px, 4vw, 60px) clamp(36px, 6vw, 88px);
   align-items: center;
   width: min(1100px, 90vw);
+  margin: auto 0;
 }
 
 .colony-left    { grid-area: left; }
@@ -391,33 +392,124 @@
 
 @media (max-width: 768px) {
   .colony-section {
+    height: 100svh;
+    min-height: 100svh;
     justify-content: flex-start;
   }
 
   .colony-content {
+    flex: 1 1 auto;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
     grid-template-areas:
       "left"
       "right"
       "funding";
-    gap: clamp(24px, 4vh, 36px);
-    padding: 80px 0 32px;
+    align-content: space-between;
+    gap: clamp(14px, 2.3vh, 24px);
+    width: min(360px, 88vw);
+    min-height: 0;
+    margin: 0;
+    padding: clamp(42px, 5.8vh, 58px) 0 clamp(14px, 2.2vh, 22px);
     align-items: start;
-    overflow-y: auto;
-    max-height: calc(100vh - 82px);
+    box-sizing: border-box;
+    overflow: visible;
+    max-height: none;
+  }
+
+  .colony-kicker {
+    font-size: 8px;
+    margin-bottom: 6px;
   }
 
   .colony-title {
-    font-size: clamp(40px, 12vw, 64px);
+    margin-bottom: 10px;
+    font-size: clamp(34px, 10.5vw, 54px);
+    line-height: 0.88;
+  }
+
+  .colony-tagline {
+    margin-bottom: 12px;
+    font-size: clamp(10px, 2.7vw, 12px);
+    font-weight: 400;
+    line-height: 1.55;
+  }
+
+  .colony-stat__value,
+  .colony-funding__raised,
+  .colony-donor__amount {
+    font-weight: 400;
   }
 
   .colony-stats {
     flex-wrap: wrap;
+    margin-bottom: 12px;
   }
 
   .colony-stat {
     flex: 0 0 50%;
+  }
+
+  .colony-stat__inner {
+    gap: 3px;
+    padding: 7px 0;
+  }
+
+  .colony-stat__label {
+    font-size: 6px;
+    letter-spacing: 0.18em;
+  }
+
+  .colony-stat__value {
+    font-size: clamp(11px, 3.2vw, 14px);
+  }
+
+  .colony-cta {
+    padding: 9px 18px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+  }
+
+  .colony-right {
+    gap: 0;
+    width: 100%;
+  }
+
+  .colony-donors__label {
+    font-size: 7px;
+    margin-bottom: 5px;
+  }
+
+  .colony-donor {
+    grid-template-columns: 24px 1fr auto;
+    gap: 8px;
+    padding: clamp(4px, 0.7vh, 6px) 0;
+  }
+
+  .colony-donor__rank,
+  .colony-donor__name,
+  .colony-donor__amount {
+    font-size: 9px;
+  }
+
+  .colony-funding__header {
+    margin-bottom: 6px;
+  }
+
+  .colony-funding__label,
+  .colony-funding__meta {
+    font-size: 8px;
+    letter-spacing: 0.16em;
+  }
+
+  .colony-funding__raised,
+  .colony-funding__goal,
+  .colony-funding__of {
+    font-size: 11px;
+  }
+
+  .colony-bar {
+    margin-bottom: 5px;
   }
 
   .colony-stat:nth-child(3) .colony-stat__sep {
