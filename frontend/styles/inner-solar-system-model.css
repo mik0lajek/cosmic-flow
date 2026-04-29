@@ -80,15 +80,26 @@
   will-change: transform;
 }
 
+.solar-model-asteroid-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transform: rotate(var(--asteroid-start));
+  transform-origin: center;
+  will-change: transform;
+  animation: solar-model-asteroid-orbit var(--asteroid-duration) linear infinite;
+  animation-direction: var(--asteroid-direction);
+}
+
 .solar-model-asteroid {
   position: absolute;
-  left: var(--asteroid-x);
-  top: var(--asteroid-y);
+  left: calc(50% + var(--asteroid-radius));
+  top: 50%;
   width: var(--asteroid-w);
   height: var(--asteroid-h);
   opacity: var(--asteroid-opacity);
   filter: blur(var(--asteroid-blur)) drop-shadow(0 3px 9px rgba(0, 0, 0, 0.82));
-  transform: rotate(var(--asteroid-rotate));
+  transform: translate(-50%, -50%) rotate(var(--asteroid-rotate));
   border-radius: 46% 54% 38% 62% / 58% 34% 66% 42%;
   background:
     radial-gradient(circle at 34% 28%, rgba(120, 126, 132, 0.38), transparent 24%),
@@ -388,6 +399,11 @@
   to   { transform: rotate(calc(var(--moon-start) + 360deg)); }
 }
 
+@keyframes solar-model-asteroid-orbit {
+  from { transform: rotate(var(--asteroid-start)); }
+  to   { transform: rotate(calc(var(--asteroid-start) + 360deg)); }
+}
+
 @keyframes solar-model-sun-pulse {
   0%, 100% { opacity: 0.74; transform: scale(0.96); }
   50%      { opacity: 1; transform: scale(1.06); }
@@ -401,6 +417,7 @@
   }
 
   .solar-model__runner,
+  .solar-model-asteroid-track,
   .solar-model__planet-link,
   .solar-model__moon-runner,
   .solar-model__moon-link,
@@ -413,6 +430,12 @@
 @media (max-width: 900px) {
   .solar-model-stage {
     width: min(82vmin, calc(100svh - 138px), 700px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .solar-model-asteroid-belt {
+    inset: clamp(72px, 13vmin, 170px) clamp(190px, 18vw, 360px);
   }
 }
 

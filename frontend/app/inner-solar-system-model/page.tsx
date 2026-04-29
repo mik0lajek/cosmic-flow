@@ -177,6 +177,29 @@ const asteroids = [
   { x: "7%", y: "80%", w: "12px", h: "9px", r: "-9deg", blur: "1.6px", opacity: 0.35 },
 ];
 
+const numberFromCssValue = (value: string) => Number.parseFloat(value);
+
+const getAsteroidOrbit = (asteroid: (typeof asteroids)[number], index: number) => {
+  const x = numberFromCssValue(asteroid.x);
+  const y = numberFromCssValue(asteroid.y);
+  const width = numberFromCssValue(asteroid.w);
+  const height = numberFromCssValue(asteroid.h);
+  const blur = numberFromCssValue(asteroid.blur);
+  const dx = x - 50;
+  const dy = y - 50;
+  const radius = Math.hypot(dx, dy);
+  const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+  const size = (width + height) / 2;
+  const depthDuration = 210 + blur * 58 + Math.max(0, 34 - size) * 2.4 + (index % 6) * 14;
+
+  return {
+    angle: `${angle}deg`,
+    radius: `${radius}%`,
+    duration: `${Math.round(depthDuration)}s`,
+    direction: index % 4 === 0 ? "reverse" : "normal",
+  };
+};
+
 export default function InnerSolarSystemModel() {
   const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -185,12 +208,12 @@ export default function InnerSolarSystemModel() {
     const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
     const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
 
-    event.currentTarget.style.setProperty("--solar-tilt-x", `${y * -4.5}deg`);
-    event.currentTarget.style.setProperty("--solar-tilt-y", `${x * 6.5}deg`);
-    event.currentTarget.style.setProperty("--solar-belt-x", `${y * 0.7}deg`);
-    event.currentTarget.style.setProperty("--solar-belt-y", `${x * -1}deg`);
-    event.currentTarget.style.setProperty("--solar-belt-shift-x", `${x * 2.5}px`);
-    event.currentTarget.style.setProperty("--solar-belt-shift-y", `${y * 1.8}px`);
+    event.currentTarget.style.setProperty("--solar-tilt-x", `${y * -2.2}deg`);
+    event.currentTarget.style.setProperty("--solar-tilt-y", `${x * 3.2}deg`);
+    event.currentTarget.style.setProperty("--solar-belt-x", `${y * 0.25}deg`);
+    event.currentTarget.style.setProperty("--solar-belt-y", `${x * -0.35}deg`);
+    event.currentTarget.style.setProperty("--solar-belt-shift-x", `${x * 1}px`);
+    event.currentTarget.style.setProperty("--solar-belt-shift-y", `${y * 0.8}px`);
   };
 
   const handlePointerLeave = (event: PointerEvent<HTMLElement>) => {
@@ -214,21 +237,33 @@ export default function InnerSolarSystemModel() {
         <div className="solar-model-section__stars" aria-hidden="true" />
         <div className="solar-model-section__haze" aria-hidden="true" />
         <div className="solar-model-asteroid-belt" aria-hidden="true">
-          {asteroids.map((asteroid, index) => (
-            <span
-              className="solar-model-asteroid"
-              key={`${asteroid.x}-${asteroid.y}-${index}`}
-              style={{
-                "--asteroid-x": asteroid.x,
-                "--asteroid-y": asteroid.y,
-                "--asteroid-w": asteroid.w,
-                "--asteroid-h": asteroid.h,
-                "--asteroid-rotate": asteroid.r,
-                "--asteroid-blur": asteroid.blur,
-                "--asteroid-opacity": asteroid.opacity,
-              } as CSSProperties}
-            />
-          ))}
+          {asteroids.map((asteroid, index) => {
+            const orbit = getAsteroidOrbit(asteroid, index);
+
+            return (
+              <span
+                className="solar-model-asteroid-track"
+                key={`${asteroid.x}-${asteroid.y}-${index}`}
+                style={{
+                  "--asteroid-start": orbit.angle,
+                  "--asteroid-radius": orbit.radius,
+                  "--asteroid-duration": orbit.duration,
+                  "--asteroid-direction": orbit.direction,
+                } as CSSProperties}
+              >
+                <span
+                  className="solar-model-asteroid"
+                  style={{
+                  "--asteroid-w": asteroid.w,
+                  "--asteroid-h": asteroid.h,
+                  "--asteroid-rotate": asteroid.r,
+                  "--asteroid-blur": asteroid.blur,
+                  "--asteroid-opacity": asteroid.opacity,
+                  } as CSSProperties}
+                />
+              </span>
+            );
+          })}
         </div>
 
         <header className="solar-model-header">

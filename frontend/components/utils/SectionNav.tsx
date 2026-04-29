@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import "../../styles/utils/section-nav.css";
 
 const sections = [
@@ -14,10 +15,13 @@ const sections = [
 ];
 
 export default function SectionNav() {
+  const pathname = usePathname();
   const [active, setActive] = useState("section-start");
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
+    if (pathname !== "/") return;
+
     const update = () => {
       const mid = window.innerHeight / 2;
       let bestId = sections[0].id;
@@ -34,7 +38,9 @@ export default function SectionNav() {
     window.addEventListener("scroll", update, { passive: true });
     update();
     return () => window.removeEventListener("scroll", update);
-  }, []);
+  }, [pathname]);
+
+  if (pathname !== "/") return null;
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
