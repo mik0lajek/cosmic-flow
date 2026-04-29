@@ -60,6 +60,7 @@ export default function SpaceFlowReveal() {
     let startProgress = 0;
     let targetProgress = 0;
     let rafId: number | null = null;
+    let lastScrollY = window.scrollY;
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
@@ -94,6 +95,22 @@ export default function SpaceFlowReveal() {
       doneRef.current = false;
       progressRef.current = 0;
       draw(0);
+    };
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const isReturningUp = currentScrollY < lastScrollY;
+      lastScrollY = currentScrollY;
+
+      if (!isReturningUp || progressRef.current <= 0) return;
+
+      const header = document.querySelector("header");
+      const headerBottom = header?.getBoundingClientRect().bottom ?? 0;
+      const isHeaderVisible = headerBottom > 0;
+
+      if (isHeaderVisible) {
+        resetReveal();
+      }
     };
 
     const handleWheel = (e: WheelEvent) => {
@@ -177,10 +194,12 @@ export default function SpaceFlowReveal() {
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", resize);
       if (rafId) cancelAnimationFrame(rafId);
     };
