@@ -80,6 +80,24 @@
   will-change: transform;
 }
 
+.solar-model-asteroid-hover-zone {
+  position: absolute;
+  top: 9svh;
+  right: 0;
+  bottom: 9svh;
+  z-index: 18;
+  width: clamp(58px, 7vw, 116px);
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: default;
+}
+
+.solar-model-asteroid-hover-zone:focus-visible {
+  outline: 1px solid rgba(255, 228, 170, 0.44);
+  outline-offset: -10px;
+}
+
 .solar-model-asteroid-track {
   position: absolute;
   inset: 0;
@@ -92,6 +110,8 @@
 }
 
 .solar-model-asteroid {
+  --asteroid-highlight-opacity: 0.1;
+  --asteroid-rim-opacity: 0;
   position: absolute;
   left: calc(50% + var(--asteroid-radius));
   top: 50%;
@@ -101,6 +121,9 @@
   filter: blur(var(--asteroid-blur)) drop-shadow(0 3px 9px rgba(0, 0, 0, 0.82));
   transform: translate(-50%, -50%) rotate(var(--asteroid-rotate));
   border-radius: 46% 54% 38% 62% / 58% 34% 66% 42%;
+  transition: opacity 0.32s ease;
+  contain: paint;
+  backface-visibility: hidden;
   background:
     radial-gradient(circle at 34% 28%, rgba(120, 126, 132, 0.38), transparent 24%),
     radial-gradient(circle at 72% 66%, rgba(4, 5, 8, 0.58), transparent 35%),
@@ -108,6 +131,12 @@
   box-shadow:
     inset 2px 2px 4px rgba(180, 188, 196, 0.14),
     inset -4px -5px 7px rgba(0, 0, 0, 0.62);
+}
+
+.solar-model-section--belt-active .solar-model-asteroid {
+  opacity: min(0.86, calc(var(--asteroid-opacity) + 0.14));
+  --asteroid-highlight-opacity: 0.42;
+  --asteroid-rim-opacity: 0.28;
 }
 
 .solar-model-asteroid::before,
@@ -119,15 +148,23 @@
 }
 
 .solar-model-asteroid::before {
-  inset: 16% 22% 48% 18%;
-  background: rgba(190, 196, 205, 0.1);
-  filter: blur(1px);
+  inset: 0;
+  opacity: var(--asteroid-highlight-opacity);
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255, 220, 170, 0.62), transparent 26%),
+    radial-gradient(circle at 70% 72%, rgba(255, 150, 62, 0.24), transparent 34%),
+    linear-gradient(135deg, rgba(255, 196, 120, 0.18), transparent 52%);
+  transition: opacity 0.32s ease;
 }
 
 .solar-model-asteroid::after {
-  inset: 46% 14% 16% 54%;
-  background: rgba(0, 0, 0, 0.3);
-  filter: blur(1.5px);
+  inset: 0;
+  opacity: 1;
+  background:
+    radial-gradient(circle at 68% 68%, rgba(0, 0, 0, 0.28), transparent 26%),
+    radial-gradient(circle at 22% 78%, rgba(0, 0, 0, 0.22), transparent 18%),
+    radial-gradient(circle at 50% 50%, transparent 58%, rgba(255, 184, 92, var(--asteroid-rim-opacity)) 100%);
+  transition: background 0.32s ease;
 }
 
 .solar-model-header {
@@ -177,6 +214,7 @@
   text-shadow:
     0 4px 34px rgba(0, 0, 0, 0.9),
     0 0 46px rgba(255, 138, 49, 0.12);
+  min-height: 1.84em;
 }
 
 .solar-model-stage {
@@ -425,6 +463,7 @@
     animation-duration: 0.001ms;
     animation-iteration-count: 1;
   }
+
 }
 
 @media (max-width: 900px) {
@@ -476,6 +515,12 @@
 
   .solar-model-asteroid-belt {
     inset: clamp(16px, 5vw, 34px);
+  }
+
+  .solar-model-asteroid-hover-zone {
+    top: 13svh;
+    bottom: 11svh;
+    width: clamp(44px, 11vw, 68px);
   }
 }
 

@@ -2,7 +2,7 @@
 
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import type { CSSProperties, PointerEvent } from "react";
+import { useEffect, useState, type CSSProperties, type PointerEvent } from "react";
 import SUN from "../../Images/sections/sun.png";
 import MERCURY from "../../Images/sections/mercury.png";
 import VENUS from "../../Images/sections/venus.png";
@@ -24,6 +24,8 @@ type Body = {
 };
 
 const placeholderSource = "about:blank";
+const defaultTitle = "Inner Solar System Model";
+const asteroidTitle = "There Is More Beyond — But Not For Us Yet";
 
 const planets: Body[] = [
   {
@@ -201,6 +203,38 @@ const getAsteroidOrbit = (asteroid: (typeof asteroids)[number], index: number) =
 };
 
 export default function InnerSolarSystemModel() {
+  const [isBeltActive, setIsBeltActive] = useState(false);
+  const [titleText, setTitleText] = useState(defaultTitle);
+  const targetTitle = isBeltActive ? asteroidTitle : defaultTitle;
+
+  useEffect(() => {
+    let timer: number | undefined;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      timer = window.setTimeout(() => setTitleText(targetTitle), 0);
+      return () => window.clearTimeout(timer);
+    }
+
+    let index = 0;
+    const startTimer = window.setTimeout(() => {
+      setTitleText("");
+
+      timer = window.setInterval(() => {
+        index += 1;
+        setTitleText(targetTitle.slice(0, index));
+
+        if (index >= targetTitle.length && timer) {
+          window.clearInterval(timer);
+        }
+      }, 26);
+    }, 0);
+
+    return () => {
+      window.clearTimeout(startTimer);
+      if (timer) window.clearInterval(timer);
+    };
+  }, [targetTitle]);
+
   const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -229,7 +263,7 @@ export default function InnerSolarSystemModel() {
     <main className="solar-model-page">
       <section
         id="inner-solar-system-model"
-        className="solar-model-section"
+        className={`solar-model-section${isBeltActive ? " solar-model-section--belt-active" : ""}`}
         aria-labelledby="solar-model-title"
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
@@ -265,14 +299,23 @@ export default function InnerSolarSystemModel() {
             );
           })}
         </div>
+        <button
+          className="solar-model-asteroid-hover-zone"
+          type="button"
+          aria-label="Reveal outer Solar System hint"
+          onFocus={() => setIsBeltActive(true)}
+          onBlur={() => setIsBeltActive(false)}
+          onPointerEnter={() => setIsBeltActive(true)}
+          onPointerLeave={() => setIsBeltActive(false)}
+        />
 
         <header className="solar-model-header">
           <Link href="/" className="solar-model-header__home">
             Cosmic Flow
           </Link>
           <p className="solar-model-header__kicker">Interactive orbit study</p>
-          <h1 id="solar-model-title" className="solar-model-header__title">
-            Inner Solar System Model
+          <h1 id="solar-model-title" className="solar-model-header__title" aria-live="polite">
+            <span>{titleText}</span>
           </h1>
         </header>
 
