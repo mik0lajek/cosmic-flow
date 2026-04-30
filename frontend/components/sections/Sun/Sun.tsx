@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import SUN from "../../../Images/sections/sun.png";
+import SUN from "../../../Images/sections/sun.webp";
 import "../../../styles/sun/sun.css";
 
 const stats = [

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import VENUS from "../../../Images/sections/venus.png";
+import VENUS from "../../../Images/sections/venus.webp";
 import "../../../styles/venus/venus.css";
 
 const stats = [

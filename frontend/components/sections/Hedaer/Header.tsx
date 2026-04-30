@@ -1,6 +1,6 @@
 import Image from "next/image";
-import IMGBG from "../../../Images/header/header-bg.jpg";
-import ASTRONAUT from "../../../Images/header/astronaut.png";
+import IMGBG from "../../../Images/header/header-bg.webp";
+import ASTRONAUT from "../../../Images/header/astronaut.webp";
 import "../../../styles/header/header.css";
 import "../../../styles/header/astronaut.css";
 import ScrollIndicator from "./ScrollIndicator";

@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { PointerEvent, useCallback, useEffect, useRef, useState } from "react";
-import EARTH from "../../../Images/sections/earth.png";
-import MOON from "../../../Images/sections/moon.png";
+import EARTH from "../../../Images/sections/earth.webp";
+import MOON from "../../../Images/sections/moon.webp";
 import "../../../styles/earth-moon/earth-moon.css";
 
 const earthDetails = [

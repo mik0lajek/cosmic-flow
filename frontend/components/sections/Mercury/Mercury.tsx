@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import MERCURY from "../../../Images/sections/mercury.png";
+import MERCURY from "../../../Images/sections/mercury.webp";
 import "../../../styles/mercury/mercury.css";
 
 const stats = [
