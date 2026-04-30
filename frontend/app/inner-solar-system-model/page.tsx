@@ -12,6 +12,7 @@ import MARS from "../../Images/sections/mars.png";
 import "../../styles/inner-solar-system-model.css";
 
 type Body = {
+  key: string;
   name: string;
   image: StaticImageData;
   className: string;
@@ -20,15 +21,22 @@ type Body = {
   duration: string;
   start: string;
   depth: string;
-  sourceHref: string;
+  href: string;
+  color: string;
 };
 
-const placeholderSource = "about:blank";
 const defaultTitle = "Inner Solar System Model";
 const asteroidTitle = "There Is More Beyond — But Not For Us Yet";
+const sunNav = {
+  key: "sun",
+  name: "Sun",
+  href: "/#section-sun",
+  color: "rgba(255, 190, 80, 0.92)",
+};
 
 const planets: Body[] = [
   {
+    key: "mercury",
     name: "Mercury",
     image: MERCURY,
     className: "solar-model__planet--mercury",
@@ -37,9 +45,11 @@ const planets: Body[] = [
     duration: "15s",
     start: "292deg",
     depth: "92px",
-    sourceHref: placeholderSource,
+    href: "/#section-mercury",
+    color: "rgba(210, 165, 80, 0.9)",
   },
   {
+    key: "venus",
     name: "Venus",
     image: VENUS,
     className: "solar-model__planet--venus",
@@ -48,9 +58,11 @@ const planets: Body[] = [
     duration: "24s",
     start: "38deg",
     depth: "54px",
-    sourceHref: placeholderSource,
+    href: "/#section-venus",
+    color: "rgba(255, 200, 100, 0.94)",
   },
   {
+    key: "earth-moon",
     name: "Earth",
     image: EARTH,
     className: "solar-model__planet--earth",
@@ -59,9 +71,11 @@ const planets: Body[] = [
     duration: "34s",
     start: "158deg",
     depth: "18px",
-    sourceHref: placeholderSource,
+    href: "/#section-earth-moon",
+    color: "rgba(96, 165, 250, 0.92)",
   },
   {
+    key: "mars",
     name: "Mars",
     image: MARS,
     className: "solar-model__planet--mars",
@@ -70,11 +84,13 @@ const planets: Body[] = [
     duration: "48s",
     start: "326deg",
     depth: "-18px",
-    sourceHref: placeholderSource,
+    href: "/#section-mars",
+    color: "rgba(249, 115, 22, 0.92)",
   },
 ];
 
 const moon: Body = {
+  key: "earth-moon",
   name: "Moon",
   image: MOON,
   className: "solar-model__moon-link",
@@ -83,8 +99,19 @@ const moon: Body = {
   duration: "7s",
   start: "54deg",
   depth: "0px",
-  sourceHref: placeholderSource,
+  href: "/#section-earth-moon",
+  color: "rgba(190, 225, 255, 0.92)",
 };
+
+const bottomNav = [
+  sunNav,
+  ...planets.map(({ key, name, href, color }) => ({
+    key,
+    name: key === "earth-moon" ? "Earth + Moon" : name,
+    href,
+    color,
+  })),
+];
 
 const asteroids = [
   { x: "1%", y: "5%", w: "34px", h: "24px", r: "-18deg", blur: "0.2px", opacity: 0.78 },
@@ -204,6 +231,7 @@ const getAsteroidOrbit = (asteroid: (typeof asteroids)[number], index: number) =
 
 export default function InnerSolarSystemModel() {
   const [isBeltActive, setIsBeltActive] = useState(false);
+  const [activeBody, setActiveBody] = useState<string | null>(null);
   const [titleText, setTitleText] = useState(defaultTitle);
   const targetTitle = isBeltActive ? asteroidTitle : defaultTitle;
 
@@ -320,15 +348,18 @@ export default function InnerSolarSystemModel() {
         </header>
 
         <div className="solar-model-stage" aria-label="Animated inner Solar System model">
-          <a
-            className="solar-model__sun-link"
-            href={placeholderSource}
-            target="_blank"
-            rel="noreferrer noopener"
-            aria-label="Open Sun image source in a new tab"
+          <Link
+            className={`solar-model__sun-link${activeBody === sunNav.key ? " solar-model__body-link--active" : ""}`}
+            href={sunNav.href}
+            aria-label="Go to Sun section"
+            onFocus={() => setActiveBody(sunNav.key)}
+            onBlur={() => setActiveBody(null)}
+            onPointerEnter={() => setActiveBody(sunNav.key)}
+            onPointerLeave={() => setActiveBody(null)}
+            style={{ "--body-active-color": sunNav.color } as CSSProperties}
           >
             <Image src={SUN} alt="Sun" priority sizes="(max-width: 768px) 28vw, 15vw" className="solar-model__sun-img" />
-          </a>
+          </Link>
 
           {planets.map((planet) => (
             <div
@@ -347,12 +378,15 @@ export default function InnerSolarSystemModel() {
                     className="solar-model__planet-system"
                     style={{ "--body-size": planet.bodySize } as CSSProperties}
                   >
-                    <a
-                      className={`solar-model__planet-link ${planet.className}`}
-                      href={planet.sourceHref}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      aria-label="Open Earth image source in a new tab"
+                    <Link
+                      className={`solar-model__planet-link ${planet.className}${activeBody === planet.key ? " solar-model__body-link--active" : ""}`}
+                      href={planet.href}
+                      aria-label="Go to Earth and Moon section"
+                      onFocus={() => setActiveBody(planet.key)}
+                      onBlur={() => setActiveBody(null)}
+                      onPointerEnter={() => setActiveBody(planet.key)}
+                      onPointerLeave={() => setActiveBody(null)}
+                      style={{ "--body-active-color": planet.color } as CSSProperties}
                     >
                       <Image
                         src={planet.image}
@@ -361,7 +395,7 @@ export default function InnerSolarSystemModel() {
                         sizes="(max-width: 768px) 12vw, 6vw"
                         className="solar-model__planet-img"
                       />
-                    </a>
+                    </Link>
                     <span
                       className="solar-model__moon-orbit"
                       style={{
@@ -371,27 +405,31 @@ export default function InnerSolarSystemModel() {
                       } as CSSProperties}
                     >
                       <span className="solar-model__moon-runner">
-                        <a
-                          className={moon.className}
-                          href={moon.sourceHref}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          aria-label="Open Moon image source in a new tab"
-                          style={{ "--body-size": moon.bodySize } as CSSProperties}
+                        <Link
+                          className={`${moon.className}${activeBody === moon.key ? " solar-model__body-link--active" : ""}`}
+                          href={moon.href}
+                          aria-label="Go to Earth and Moon section"
+                          onFocus={() => setActiveBody(moon.key)}
+                          onBlur={() => setActiveBody(null)}
+                          onPointerEnter={() => setActiveBody(moon.key)}
+                          onPointerLeave={() => setActiveBody(null)}
+                          style={{ "--body-size": moon.bodySize, "--body-active-color": moon.color } as CSSProperties}
                         >
                           <Image src={moon.image} alt="Moon" fill sizes="16px" className="solar-model__planet-img" />
-                        </a>
+                        </Link>
                       </span>
                     </span>
                   </div>
                 ) : (
-                  <a
-                    className={`solar-model__planet-link ${planet.className}`}
-                    href={planet.sourceHref}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    aria-label={`Open ${planet.name} image source in a new tab`}
-                    style={{ "--body-size": planet.bodySize } as CSSProperties}
+                  <Link
+                    className={`solar-model__planet-link ${planet.className}${activeBody === planet.key ? " solar-model__body-link--active" : ""}`}
+                    href={planet.href}
+                    aria-label={`Go to ${planet.name} section`}
+                    onFocus={() => setActiveBody(planet.key)}
+                    onBlur={() => setActiveBody(null)}
+                    onPointerEnter={() => setActiveBody(planet.key)}
+                    onPointerLeave={() => setActiveBody(null)}
+                    style={{ "--body-size": planet.bodySize, "--body-active-color": planet.color } as CSSProperties}
                   >
                     <Image
                       src={planet.image}
@@ -400,20 +438,29 @@ export default function InnerSolarSystemModel() {
                       sizes="(max-width: 768px) 12vw, 6vw"
                       className="solar-model__planet-img"
                     />
-                  </a>
+                  </Link>
                 )}
               </div>
             </div>
           ))}
         </div>
 
-        <div className="solar-model-caption" aria-hidden="true">
-          <span>Sun</span>
-          <span>Mercury</span>
-          <span>Venus</span>
-          <span>Earth + Moon</span>
-          <span>Mars</span>
-        </div>
+        <nav className="solar-model-caption" aria-label="Inner Solar System section links">
+          {bottomNav.map((item) => (
+            <Link
+              className={`solar-model-caption__link${activeBody === item.key ? " solar-model-caption__link--active" : ""}`}
+              href={item.href}
+              key={item.key}
+              onFocus={() => setActiveBody(item.key)}
+              onBlur={() => setActiveBody(null)}
+              onPointerEnter={() => setActiveBody(item.key)}
+              onPointerLeave={() => setActiveBody(null)}
+              style={{ "--body-active-color": item.color } as CSSProperties}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </nav>
       </section>
     </main>
   );
