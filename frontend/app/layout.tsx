@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Cosmic Flow — Discover the Solar System",
   description:
     "An interactive journey through the Solar System — from the Sun to Mars and humanity's next frontier.",
+  icons: {
+    icon: "/cosmic-flow-favicon.png",
+  },
   openGraph: {
     title: "Cosmic Flow — Discover the Solar System",
     description: "An interactive journey through the Solar System.",
