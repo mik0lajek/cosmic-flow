@@ -48,13 +48,6 @@ npm run dev
 
 Aplikacja dostępna pod `http://localhost:3000`.
 
-### Pozostałe komendy
-
-```bash
-npm run build    # build produkcyjny
-npm run start    # uruchomienie builda
-npm run lint     # linting
-```
 
 ---
 
@@ -62,8 +55,4 @@ npm run lint     # linting
 
 > W przygotowaniu.
 
----
 
-## Licencja
-
-> W przygotowaniu.
