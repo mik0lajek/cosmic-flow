@@ -58,7 +58,7 @@ Aplikacja dostępna pod `http://localhost:3000`.
 
 | Mobile | Desktop |
 |--------|---------|
-| ![Mobile](frontend/images/lightouse/mobile_LH.jpg) | ![Desktop](frontend/images/lightouse/desktop_LH.jpg) |
+| ![Mobile](images/mobile_LH.jpg) | ![Desktop](images/desktop_LH.jpg) |
 
 ---
 
