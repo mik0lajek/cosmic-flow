@@ -1,8 +1,24 @@
-import type { Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import SectionNav from "@/components/utils/SectionNav";
 import HamburgerNav from "@/components/utils/HamburgerNav";
+import JsonLd from "@/components/utils/JsonLd";
+
+export const metadata: Metadata = {
+  title: "Cosmic Flow — Discover the Solar System",
+  description:
+    "An interactive journey through the Solar System — from the Sun to Mars and humanity's next frontier.",
+  openGraph: {
+    title: "Cosmic Flow — Discover the Solar System",
+    description: "An interactive journey through the Solar System.",
+    siteName: "Cosmic Flow",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -20,12 +36,14 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${playfair.variable} h-full antialiased overflow-x-hidden`}>
+      <head>
+        <JsonLd />
+      </head>
       <body className="min-h-full flex flex-col font-sans">
         {children}
         <SectionNav />
         <HamburgerNav />
       </body>
-     
     </html>
   );
 }
