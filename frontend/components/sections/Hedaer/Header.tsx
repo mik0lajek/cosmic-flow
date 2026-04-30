@@ -1,5 +1,4 @@
 import Image from "next/image";
-import IMGBG from "../../../Images/header/header-bg.webp";
 import ASTRONAUT from "../../../Images/header/astronaut.webp";
 import "../../../styles/header/header.css";
 import "../../../styles/header/astronaut.css";
@@ -10,11 +9,11 @@ export default function Header() {
   return (
     <header id="section-start" className="discover-header">
       <Image
-        src={IMGBG}
+        src="/header-bg.webp"
         alt="Header Background"
-        quality={75}
         fill
         priority
+        unoptimized
         sizes="100vw"
         className="discover-header__bg"
       />
