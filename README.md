@@ -54,6 +54,14 @@ Aplikacja dostępna pod `http://localhost:3000`.
 
 ---
 
+## Lighthouse
+
+| Mobile | Desktop |
+|--------|---------|
+| ![Mobile](frontend/images/lightouse/mobile_LH.jpg) | ![Desktop](frontend/images/lightouse/desktop_LH.jpg) |
+
+---
+
 ## Backend
 
 > W przygotowaniu.
