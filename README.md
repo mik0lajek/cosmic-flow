@@ -4,6 +4,9 @@ Interaktywna strona landing page dla inicjatywy kolonizacji Marsa. Użytkownik p
 
 ---
 
+URL: https://cosmic-flow.pages.dev
+
+---
 ## Struktura projektu
 
 ```
