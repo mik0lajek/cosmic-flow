@@ -2,7 +2,8 @@
 
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import { useEffect, useState, type CSSProperties, type PointerEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, type CSSProperties, type MouseEvent, type PointerEvent } from "react";
 import SUN from "../../Images/sections/sun.png";
 import MERCURY from "../../Images/sections/mercury.png";
 import VENUS from "../../Images/sections/venus.png";
@@ -230,8 +231,10 @@ const getAsteroidOrbit = (asteroid: (typeof asteroids)[number], index: number) =
 };
 
 export default function InnerSolarSystemModel() {
+  const router = useRouter();
   const [isBeltActive, setIsBeltActive] = useState(false);
   const [activeBody, setActiveBody] = useState<string | null>(null);
+  const [transitioningBody, setTransitioningBody] = useState<string | null>(null);
   const [titleText, setTitleText] = useState(defaultTitle);
   const targetTitle = isBeltActive ? asteroidTitle : defaultTitle;
 
@@ -287,6 +290,22 @@ export default function InnerSolarSystemModel() {
     event.currentTarget.style.setProperty("--solar-belt-shift-y", "0px");
   };
 
+  const handleSectionLinkClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    itemKey: string,
+    href: string,
+  ) => {
+    if (itemKey !== "mercury") return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+
+    event.preventDefault();
+    setTransitioningBody("mercury");
+
+    window.setTimeout(() => {
+      router.push(href);
+    }, 760);
+  };
+
   return (
     <main className="solar-model-page">
       <section
@@ -296,6 +315,16 @@ export default function InnerSolarSystemModel() {
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
       >
+        <div
+          className={`solar-model-transition solar-model-transition--mercury${transitioningBody === "mercury" ? " solar-model-transition--active" : ""}`}
+          aria-hidden="true"
+        >
+          <span className="solar-model-transition__ring" />
+          <span className="solar-model-transition__spark solar-model-transition__spark--one" />
+          <span className="solar-model-transition__spark solar-model-transition__spark--two" />
+          <span className="solar-model-transition__label">Mercury</span>
+        </div>
+
         <div className="solar-model-section__stars" aria-hidden="true" />
         <div className="solar-model-section__haze" aria-hidden="true" />
         <div className="solar-model-asteroid-belt" aria-hidden="true">
@@ -382,6 +411,7 @@ export default function InnerSolarSystemModel() {
                       className={`solar-model__planet-link ${planet.className}${activeBody === planet.key ? " solar-model__body-link--active" : ""}`}
                       href={planet.href}
                       aria-label="Go to Earth and Moon section"
+                      onClick={(event) => handleSectionLinkClick(event, planet.key, planet.href)}
                       onFocus={() => setActiveBody(planet.key)}
                       onBlur={() => setActiveBody(null)}
                       onPointerEnter={() => setActiveBody(planet.key)}
@@ -409,6 +439,7 @@ export default function InnerSolarSystemModel() {
                           className={`${moon.className}${activeBody === moon.key ? " solar-model__body-link--active" : ""}`}
                           href={moon.href}
                           aria-label="Go to Earth and Moon section"
+                          onClick={(event) => handleSectionLinkClick(event, moon.key, moon.href)}
                           onFocus={() => setActiveBody(moon.key)}
                           onBlur={() => setActiveBody(null)}
                           onPointerEnter={() => setActiveBody(moon.key)}
@@ -425,6 +456,7 @@ export default function InnerSolarSystemModel() {
                     className={`solar-model__planet-link ${planet.className}${activeBody === planet.key ? " solar-model__body-link--active" : ""}`}
                     href={planet.href}
                     aria-label={`Go to ${planet.name} section`}
+                    onClick={(event) => handleSectionLinkClick(event, planet.key, planet.href)}
                     onFocus={() => setActiveBody(planet.key)}
                     onBlur={() => setActiveBody(null)}
                     onPointerEnter={() => setActiveBody(planet.key)}
@@ -451,6 +483,7 @@ export default function InnerSolarSystemModel() {
               className={`solar-model-caption__link${activeBody === item.key ? " solar-model-caption__link--active" : ""}`}
               href={item.href}
               key={item.key}
+              onClick={(event) => handleSectionLinkClick(event, item.key, item.href)}
               onFocus={() => setActiveBody(item.key)}
               onBlur={() => setActiveBody(null)}
               onPointerEnter={() => setActiveBody(item.key)}
