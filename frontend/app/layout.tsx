@@ -1,6 +1,13 @@
+import type { Viewport } from "next";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
-import RocketScrollbar from "@/components/utils/Scrollbar";
+import SectionNav from "@/components/utils/SectionNav";
+import HamburgerNav from "@/components/utils/HamburgerNav";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -15,7 +22,8 @@ export default function RootLayout({
     <html lang="en" className={`${playfair.variable} h-full antialiased overflow-x-hidden`}>
       <body className="min-h-full flex flex-col font-sans">
         {children}
-         <RocketScrollbar />
+        <SectionNav />
+        <HamburgerNav />
       </body>
      
     </html>

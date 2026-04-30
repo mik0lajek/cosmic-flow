@@ -1,0 +1,195 @@
+.earth-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 44% at 50% 80%, var(--planet-earth-tint), transparent 70%),
+    var(--color-bg);
+}
+
+.earth-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--color-bg) 0%, transparent 28%, transparent 76%, var(--color-bg) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.56) 0%, transparent 46%, rgba(0, 0, 0, 0.36) 100%);
+}
+
+.earth-title {
+  position: absolute;
+  top: 8vh;
+  left: 50%;
+  z-index: 10;
+  margin: 0;
+  transform: translateX(-50%);
+  font-size: clamp(54px, 12vw, 178px);
+  font-weight: var(--fw-black);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+  pointer-events: none;
+  text-shadow:
+    0 0 34px rgba(80, 162, 255, 0.2),
+    0 7px 34px rgba(0, 0, 0, 0.9);
+}
+
+.earth-planet {
+  position: absolute;
+  left: 50%;
+  bottom: -46vh;
+  z-index: 4;
+  width: clamp(760px, 105vw, 1560px);
+  height: clamp(760px, 105vw, 1560px);
+  transform: translateX(-50%);
+  filter:
+    drop-shadow(0 0 54px var(--planet-earth-glow))
+    drop-shadow(0 0 170px rgba(22, 92, 168, 0.24));
+}
+
+.earth-planet__img {
+  object-fit: contain !important;
+}
+
+.earth-info {
+  position: absolute;
+  left: 50%;
+  bottom: 6vh;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: minmax(250px, 0.9fr) minmax(340px, 0.62fr) minmax(250px, 0.9fr);
+  gap: clamp(46px, 7vw, 132px);
+  align-items: end;
+  width: min(1380px, 96vw);
+  transform: translateX(-50%);
+}
+
+.earth-description {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.earth-description p {
+  margin: 0;
+  font-size: clamp(13px, 1.1vw, 18px);
+  font-weight: var(--fw-bold);
+  line-height: 1.56;
+  letter-spacing: 0.03em;
+  color: var(--text-secondary);
+  text-shadow: var(--shadow-text);
+}
+
+.earth-description--left {
+  text-align: left;
+  transform: translateX(-1.5vw);
+}
+
+.earth-description--right {
+  text-align: right;
+  transform: translateX(1.5vw);
+}
+
+.earth-description--right p:last-child {
+  color: var(--planet-earth-value);
+  font-style: italic;
+}
+
+.earth-details {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 1.8vw, 28px);
+  padding: clamp(18px, 2.2vw, 30px) clamp(18px, 2.4vw, 34px);
+  text-align: center;
+}
+
+.earth-details::before {
+  content: "";
+  position: absolute;
+  inset: -18px -22px;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.76) 0%, rgba(0, 0, 0, 0.46) 48%, transparent 74%);
+  filter: blur(14px);
+}
+
+.earth-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.earth-detail__label {
+  font-size: clamp(10px, 1vw, 15px);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  text-shadow: var(--shadow-text);
+}
+
+.earth-detail__value {
+  font-size: clamp(10px, 1vw, 15px);
+  letter-spacing: 0.08em;
+  color: rgba(216, 235, 255, 0.66);
+  text-transform: uppercase;
+  text-shadow: var(--shadow-text);
+}
+
+@media (max-width: 768px) {
+  .earth-title {
+    top: 7vh;
+    font-size: clamp(44px, 16vw, 82px);
+  }
+
+  .earth-planet {
+    bottom: -18vh;
+    width: 108vmin;
+    height: 108vmin;
+  }
+
+  .earth-info {
+    bottom: 5vh;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 90vw;
+  }
+
+  .earth-description {
+    gap: 10px;
+    text-align: center;
+  }
+
+  .earth-description p {
+    font-size: clamp(10px, 2.8vw, 13px);
+    font-weight: var(--fw-regular);
+    line-height: var(--leading-body);
+  }
+
+  .earth-description--left,
+  .earth-description--right {
+    text-align: center;
+  }
+
+  .earth-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 18px;
+    padding: 8px 10px;
+  }
+
+  .earth-detail:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .earth-detail__label,
+  .earth-detail__value {
+    font-size: clamp(9px, 2.7vw, 12px);
+    letter-spacing: var(--tracking-stat);
+  }
+}

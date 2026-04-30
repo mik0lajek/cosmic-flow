@@ -1,0 +1,383 @@
+.earth-moon-section {
+  --earth-x: 0px;
+  --earth-y: 0px;
+  --moon-x: 0px;
+  --moon-y: 0px;
+  --field-x: 0px;
+  --field-y: 0px;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 44% 36% at 74% 28%, rgba(203, 224, 255, 0.12), transparent 68%),
+    radial-gradient(ellipse 40% 36% at 24% 70%, rgba(54, 137, 216, 0.12), transparent 70%),
+    var(--color-bg);
+}
+
+.earth-moon-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--color-bg) 0%, transparent 24%, transparent 58%, rgba(0, 0, 0, 0.7) 78%, var(--color-bg) 96%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.56) 0%, transparent 46%, rgba(0, 0, 0, 0.36) 100%);
+}
+
+.earth-moon-starfield {
+  position: absolute;
+  inset: -2%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  transform: translate3d(var(--field-x), var(--field-y), 0);
+  will-change: opacity, transform;
+  background:
+    radial-gradient(circle at  8% 22%, rgba(255, 255, 255, 0.52) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 18% 66%, rgba(167, 211, 255, 0.54) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 48% 14%, rgba(255, 255, 255, 0.46) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.50) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 74% 76%, rgba(167, 211, 255, 0.38) 0 1px, transparent 1.5px);
+}
+
+.earth-moon-final-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 44% at 50% 80%, var(--planet-earth-tint), transparent 70%),
+    var(--color-bg);
+  will-change: opacity;
+}
+
+.earth-moon-orbit {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  border: 1px solid rgba(182, 217, 255, 0.16);
+  border-left-color: transparent;
+  border-right-color: rgba(182, 217, 255, 0.06);
+  border-radius: 50%;
+  transform: rotate(-18deg);
+  will-change: opacity;
+}
+
+.earth-moon-orbit--outer {
+  left: 12vw;
+  top: 15vh;
+  width: 74vw;
+  height: 42vh;
+}
+
+.earth-moon-orbit--inner {
+  left: 22vw;
+  top: 27vh;
+  width: 48vw;
+  height: 26vh;
+  opacity: 0.6;
+}
+
+.earth-moon-kicker {
+  position: absolute;
+  top: 8vh;
+  left: 6vw;
+  z-index: 14;
+  margin: 0;
+  font-size: clamp(36px, 8vw, 116px);
+  font-weight: var(--fw-black);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+  pointer-events: none;
+  text-shadow:
+    0 0 34px rgba(80, 162, 255, 0.2),
+    0 7px 34px rgba(0, 0, 0, 0.9);
+  will-change: opacity;
+}
+
+.earth-moon-title {
+  position: absolute;
+  top: 8vh;
+  left: 50%;
+  z-index: 14;
+  margin: 0;
+  transform: translateX(-50%);
+  font-size: clamp(54px, 12vw, 178px);
+  font-weight: var(--fw-black);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-primary);
+  pointer-events: none;
+  text-shadow:
+    0 0 34px rgba(80, 162, 255, 0.2),
+    0 7px 34px rgba(0, 0, 0, 0.9);
+  will-change: opacity;
+}
+
+.earth-moon-earth {
+  position: absolute;
+  left: 50%;
+  bottom: -46vh;
+  z-index: 5;
+  width: clamp(760px, 105vw, 1560px);
+  height: clamp(760px, 105vw, 1560px);
+  transform: translate3d(calc(-50% + var(--earth-x)), var(--earth-y), 0) scale(1);
+  transform-origin: center center;
+  filter:
+    drop-shadow(0 0 42px rgba(44, 134, 235, 0.36))
+    drop-shadow(0 0 140px rgba(22, 92, 168, 0.2));
+  will-change: transform, filter;
+}
+
+.earth-moon-earth__img {
+  object-fit: contain !important;
+}
+
+.earth-moon-moon {
+  position: absolute;
+  right: 14vw;
+  top: 20vh;
+  z-index: 4;
+  width: clamp(130px, 16vw, 250px);
+  height: clamp(130px, 16vw, 250px);
+  border-radius: 50%;
+  overflow: visible;
+  transform: translate3d(var(--moon-x), var(--moon-y), 0);
+  transition:
+    opacity 180ms ease,
+    filter 260ms ease;
+  will-change: opacity, transform;
+}
+
+.earth-moon-moon:hover {
+  filter:
+    drop-shadow(0 0 26px rgba(255, 255, 255, 0.62))
+    drop-shadow(0 0 82px rgba(177, 211, 255, 0.42));
+}
+
+.earth-moon-moon__halo {
+  position: absolute;
+  inset: -18%;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(234, 244, 255, 0.34) 0%, rgba(177, 211, 255, 0.18) 36%, transparent 72%);
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+.earth-moon-moon:hover .earth-moon-moon__halo {
+  opacity: 1;
+}
+
+.earth-moon-moon__img {
+  z-index: 1;
+  object-fit: cover !important;
+  object-position: 78% 66%;
+  transform: scale(1.72);
+}
+
+.earth-moon-info {
+  position: absolute;
+  left: 50%;
+  bottom: 6vh;
+  z-index: 14;
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 0.52fr) 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: end;
+  width: min(1280px, 92vw);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-50%, 28px, 0);
+  will-change: opacity, transform;
+}
+
+.earth-moon-info::before {
+  content: "";
+  position: absolute;
+  inset: -80% -6%;
+  background: radial-gradient(ellipse 100% 80% at 50% 85%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.65) 38%, transparent 68%);
+  filter: blur(18px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.earth-moon-description {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.6vh, 18px);
+}
+
+.earth-moon-description p {
+  margin: 0;
+  font-size: clamp(12px, 1vw, 15px);
+  font-weight: var(--fw-regular);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-body);
+  color: var(--text-secondary);
+  text-shadow: var(--shadow-text);
+}
+
+.earth-moon-description--left  { text-align: left; }
+.earth-moon-description--right { text-align: right; }
+
+.earth-moon-description--right p:last-child {
+  color: rgba(216, 235, 255, 0.78);
+  font-style: italic;
+}
+
+.earth-moon-details {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.earth-moon-details::before {
+  content: "";
+  position: absolute;
+  inset: -55% -45%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.62) 44%, transparent 72%);
+  filter: blur(18px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.earth-moon-details__kicker {
+  display: block;
+  font-size: 8px;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--planet-earth-accent);
+  margin-bottom: clamp(10px, 1.4vh, 16px);
+  text-shadow: var(--shadow-text-strong);
+}
+
+.earth-moon-details__divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: clamp(2px, 0.4vh, 4px);
+}
+
+.earth-moon-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: clamp(7px, 1.1vh, 12px) 0;
+  border-bottom: 1px solid var(--border-subtle);
+  min-width: 0;
+}
+
+.earth-moon-detail:last-child {
+  border-bottom: none;
+}
+
+.earth-moon-detail__label {
+  font-size: 8px;
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.24em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  flex-shrink: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+.earth-moon-detail__value {
+  font-size: clamp(10px, 0.9vw, 13px);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.1em;
+  color: var(--planet-earth-value);
+  text-transform: uppercase;
+  text-align: right;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 768px) {
+  .earth-moon-kicker {
+    top: 5vh;
+    left: 6vw;
+    font-size: clamp(32px, 11vw, 58px);
+    max-width: 90vw;
+  }
+
+  .earth-moon-title {
+    display: none;
+  }
+
+  .earth-moon-orbit {
+    display: none;
+  }
+
+  .earth-moon-earth {
+    left: 50%;
+    bottom: 35vh;
+    width: clamp(300px, 92vmin, 520px);
+    height: clamp(300px, 92vmin, 520px);
+    transform: translate3d(-50%, 0, 0);
+    filter:
+      drop-shadow(0 0 34px rgba(44, 134, 235, 0.42))
+      drop-shadow(0 0 110px rgba(22, 92, 168, 0.24));
+  }
+
+  .earth-moon-moon {
+    right: 10vw;
+    top: 20vh;
+    width: clamp(64px, 18vw, 92px);
+    height: clamp(64px, 18vw, 92px);
+    transform: none;
+    transition: none;
+  }
+
+  .earth-moon-moon__halo {
+    display: none;
+  }
+
+  .earth-moon-moon__img {
+    transform: scale(1.45);
+  }
+
+  .earth-moon-info {
+    bottom: 5vh;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 88vw;
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+
+  .earth-moon-description {
+    gap: 8px;
+  }
+
+  .earth-moon-description p {
+    font-size: clamp(10px, 2.8vw, 13px);
+    font-weight: var(--fw-regular);
+    line-height: var(--leading-body);
+  }
+
+  .earth-moon-description--left,
+  .earth-moon-description--right {
+    text-align: center;
+  }
+
+  .earth-moon-detail__label,
+  .earth-moon-detail__value {
+    font-size: clamp(9px, 2.5vw, 11px);
+  }
+
+  .earth-moon-detail__label {
+    font-weight: var(--fw-bold);
+  }
+
+  .earth-moon-detail__value {
+    font-weight: var(--fw-regular);
+  }
+}

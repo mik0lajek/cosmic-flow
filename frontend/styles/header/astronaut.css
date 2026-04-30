@@ -1,7 +1,14 @@
 .astronaut-wrapper {
   position: absolute;
   z-index: 5;
+  width: clamp(260px, 34vw, 520px);
+  pointer-events: none;
   animation: astronaut-fly 20000ms linear 800ms infinite backwards;
+}
+
+.astronaut-wrapper img {
+  width: 100%;
+  height: auto;
 }
 
 .astronaut-shadow {
@@ -67,5 +74,97 @@
 
   100% {
     transform: translate(90vw, 30vh) rotate(0deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .astronaut-wrapper {
+    width: clamp(150px, 34vw, 280px);
+  }
+
+  .astronaut-shadow--green {
+    transform: translate(-5px, 5px);
+  }
+
+  .astronaut-shadow--purple {
+    transform: translate(5px, -5px);
+  }
+
+  @keyframes astronaut-fly {
+    0% {
+      transform: translate(92vw, 32vh) rotate(0deg);
+    }
+
+    45% {
+      transform: translate(-48vw, 12vh) rotate(-25deg);
+    }
+
+    99% {
+      transform: translate(96vw, -18vh) rotate(-110deg);
+    }
+
+    100% {
+      transform: translate(92vw, 32vh) rotate(0deg);
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .astronaut-wrapper {
+    width: min(142.5vw, 573px);
+  }
+
+  .astronaut-shadow--green img,
+  .astronaut-shadow--purple img {
+    opacity: 0.72;
+  }
+
+  @keyframes astronaut-fly {
+    0% {
+      transform: translate(96vw, 38vh) rotate(0deg);
+    }
+
+    45% {
+      transform: translate(-54vw, 18vh) rotate(-24deg);
+    }
+
+    99% {
+      transform: translate(100vw, -8vh) rotate(-108deg);
+    }
+
+    100% {
+      transform: translate(96vw, 38vh) rotate(0deg);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .astronaut-wrapper {
+    animation: none;
+    transform: translate(58vw, 22vh) rotate(-18deg);
+  }
+}
+
+@media (max-width: 560px) {
+  .astronaut-wrapper {
+    left: -54px;
+    top: min(15.3vh, 134px);
+    transform: none;
+  }
+
+  .astronaut-shadow--green {
+    transform: translate(5px, -5px);
+  }
+
+  .astronaut-shadow--purple {
+    transform: translate(-5px, 5px);
+  }
+}
+
+@media (max-height: 620px) and (orientation: landscape) {
+  .astronaut-wrapper {
+    width: clamp(120px, 18vw, 230px);
+    animation: none;
+    transform: translate(64vw, 12vh) rotate(-16deg);
   }
 }

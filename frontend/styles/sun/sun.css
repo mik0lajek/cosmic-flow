@@ -1,0 +1,430 @@
+.sun-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse 70% 60% at 50% 68%,
+    #3a1600 0%,
+    #1f0900 24%,
+    #0e0400 46%,
+    #030100 68%,
+    var(--color-bg) 100%
+  );
+}
+
+.sun-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--color-bg) 0%, transparent 40%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.sun-label {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  margin: 0;
+  font-size: clamp(48px, 11vw, 130px);
+  font-weight: var(--fw-black);
+  letter-spacing: 0.18em;
+  color: var(--text-primary);
+  white-space: nowrap;
+  pointer-events: none;
+  will-change: opacity;
+  text-shadow:
+    0 0 60px rgba(255, 120, 0, 0.35),
+    0 4px 24px rgba(0, 0, 0, 0.7);
+}
+
+.sun-atmosphere {
+  position: absolute;
+  inset: -30%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 62% 58% at 50% 62%,
+    rgba(255, 110,  0, 0.55) 0%,
+    rgba(220,  62,  0, 0.34) 20%,
+    rgba(160,  30,  0, 0.18) 42%,
+    rgba( 90,  12,  0, 0.07) 62%,
+    transparent               78%
+  );
+  animation: sun-atm-pulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes sun-atm-pulse {
+  from { opacity: 0.85; transform: scale(1); }
+  to   { opacity: 1;    transform: scale(1.04); }
+}
+
+.sun-zoom-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: 50% 78%;
+  will-change: transform;
+  z-index: 1;
+}
+
+.sun-rotate-wrapper {
+  position: relative;
+  width: clamp(200px, 72vmin, 700px);
+  height: clamp(200px, 72vmin, 700px);
+  flex-shrink: 0;
+  animation: sun-spin 180s linear infinite;
+  filter: drop-shadow(0 0 45px rgba(255, 110, 0, 0.85))
+          drop-shadow(0 0 90px rgba(255,  60, 0, 0.35));
+}
+
+@keyframes sun-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.sun-img {
+  object-fit: contain !important;
+}
+
+.sun-radius-line {
+  position: relative;
+  z-index: 1;
+  width: clamp(200px, 72vmin, 1000px);
+  height: 2px;
+  margin-top: clamp(10px, 1.8vh, 18px);
+  pointer-events: none;
+  transform-origin: center;
+  will-change: opacity, transform;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 228, 170, 0)    0%,
+    rgba(255, 228, 170, 0.88) 12%,
+    rgba(255, 255, 255, 0.96) 50%,
+    rgba(255, 228, 170, 0.88) 88%,
+    rgba(255, 228, 170, 0)   100%
+  );
+  box-shadow:
+    0 0 12px rgba(255, 190, 80, 0.85),
+    0 0 28px rgba(255, 110, 0, 0.42);
+}
+
+.sun-radius-line::before,
+.sun-radius-line::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(255, 238, 190, 0.95);
+  border-radius: 50%;
+  background: rgba(255, 180, 72, 0.88);
+  box-shadow: 0 0 14px rgba(255, 170, 60, 0.95);
+  transform: translateY(-50%);
+}
+
+.sun-radius-line::before { left: -4px; }
+.sun-radius-line::after  { right: -4px; }
+
+.sun-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  will-change: opacity;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 6%;
+}
+
+.sun-overlay__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding-top: 5%;
+  margin-bottom: 4%;
+}
+
+.sun-overlay__radius {
+  margin: 0;
+  font-size: clamp(24px, 3.5vw, 42px);
+  font-weight: var(--fw-black);
+  letter-spacing: 0.35em;
+  color: var(--text-primary);
+  text-shadow: 0 0 30px rgba(255, 100, 0, 0.4);
+}
+
+.sun-overlay__radius-value {
+  font-size: clamp(11px, 1.1vw, 16px);
+  letter-spacing: 0.25em;
+  color: var(--planet-sun-gold);
+  text-shadow: 0 0 18px rgba(255, 190, 80, 0.45);
+}
+
+.sun-content {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  max-width: 900px;
+  align-items: stretch;
+  padding-bottom: 6%;
+}
+
+.sun-stats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(14px, 2.4vh, 28px);
+  padding-right: 6%;
+}
+
+.sun-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.sun-stat__label {
+  font-size: 8px;
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  text-shadow: var(--shadow-text-strong);
+}
+
+.sun-stat__value {
+  font-size: clamp(11px, 1vw, 15px);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-stat);
+  color: var(--planet-sun-gold);
+  text-shadow: 0 0 14px rgba(255, 180, 60, 0.35), var(--shadow-text);
+}
+
+.sun-divider {
+  flex-shrink: 0;
+  width: 1px;
+  background: var(--border-medium);
+  align-self: stretch;
+}
+
+.sun-description {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(4px, 1vh, 10px);
+  padding-left: 6%;
+  text-align: center;
+}
+
+.sun-description__line {
+  font-size: clamp(11px, 1.2vw, 17px);
+  font-weight: var(--fw-regular);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-body);
+  color: var(--text-secondary);
+  margin: 0;
+  text-shadow: var(--shadow-text);
+}
+
+.sun-description__line--accent {
+  font-style: italic;
+  font-weight: var(--fw-bold);
+  color: var(--planet-sun-gold);
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .sun-overlay {
+    padding: 0 4%;
+  }
+
+  .sun-content {
+    max-width: 100%;
+  }
+
+  .sun-stats {
+    padding-right: 4%;
+  }
+
+  .sun-description {
+    padding-left: 4%;
+  }
+}
+
+@media (max-width: 768px) {
+  .sun-label {
+    display: block;
+    top: min(4.7vh, 41px);
+    left: 50%;
+    z-index: 21;
+    font-size: clamp(72px, 23.9vw, 96px);
+    font-weight: var(--fw-bold);
+    line-height: 0.73;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.58);
+    text-shadow: none;
+  }
+
+  .sun-section {
+    background: var(--color-bg);
+  }
+
+  .sun-section::after {
+    z-index: 6;
+    background: linear-gradient(180deg, var(--color-bg) 7%, rgba(0, 0, 0, 0) 39%);
+  }
+
+  .sun-atmosphere {
+    display: none;
+  }
+
+  .sun-zoom-wrapper {
+    inset: auto;
+    left: -2.5vw;
+    top: min(12.7vh, 111px);
+    display: block;
+    width: min(205vw, 825px);
+    height: min(205vw, 825px);
+    transform: none;
+    z-index: 1;
+  }
+
+  .sun-rotate-wrapper {
+    width: 100%;
+    height: 100%;
+    animation: none;
+    filter: drop-shadow(0 0 22px rgba(255, 118, 0, 0.72));
+  }
+
+  .sun-overlay {
+    z-index: 20;
+    display: block;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  .sun-overlay__header {
+    position: static;
+    padding-top: min(28.9vh, 253px);
+    margin: 0;
+  }
+
+  .sun-overlay__radius {
+    font-size: 32px;
+    font-weight: var(--fw-bold);
+    line-height: 0.73;
+    letter-spacing: 0;
+    text-shadow: 0 3px 9px rgba(0, 0, 0, 0.9);
+  }
+
+  .sun-overlay__radius-value {
+    display: block;
+    margin-top: 8px;
+    font-size: clamp(12px, 3.6vw, 15px);
+    line-height: 1;
+    letter-spacing: 0.12em;
+    color: var(--text-primary);
+    text-shadow: var(--shadow-text-header);
+  }
+
+  .sun-radius-line {
+    position: absolute;
+    left: 11vw;
+    top: min(58.6vh, 512px);
+    width: 80.8vw;
+    height: 1px;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: none;
+  }
+
+  .sun-radius-line::before,
+  .sun-radius-line::after {
+    display: none;
+  }
+
+  .sun-content {
+    display: block;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .sun-stats {
+    position: absolute;
+    top: min(40.5vh, 354px);
+    left: 7vw;
+    right: 7vw;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: min(6.4vh, 56px) 18px;
+    padding: 0;
+  }
+
+  .sun-stat {
+    min-width: 0;
+    gap: 0;
+  }
+
+  .sun-stat:nth-child(1) { order: 2; }
+  .sun-stat:nth-child(2) { order: 1; }
+  .sun-stat:nth-child(3) { order: 4; }
+  .sun-stat:nth-child(4) { order: 3; }
+
+  .sun-stat__label {
+    font-size: 7px;
+    font-weight: var(--fw-regular);
+    letter-spacing: 0.18em;
+    line-height: 1;
+  }
+
+  .sun-stat__value {
+    font-size: clamp(12px, 3.9vw, 16px);
+    font-weight: var(--fw-bold);
+    line-height: 0.92;
+    letter-spacing: 0;
+    color: var(--planet-sun-gold);
+  }
+
+  .sun-divider {
+    display: none;
+  }
+
+  .sun-description {
+    position: absolute;
+    top: min(61.1vh, 534px);
+    left: 7vw;
+    right: 7vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 0;
+  }
+
+  .sun-description__line {
+    font-size: clamp(11px, 3vw, 12px);
+    font-weight: var(--fw-regular);
+    line-height: var(--leading-body);
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+    text-shadow: var(--shadow-text-header);
+  }
+
+  .sun-description__line--accent {
+    color: var(--text-primary);
+    font-style: normal;
+  }
+}

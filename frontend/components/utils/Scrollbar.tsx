@@ -6,9 +6,14 @@ import '../../styles/utils/scrollbar.css'
 export default function RocketScrollbar() {
   const [scrollPercent, setScrollPercent] = useState(0);
   const [visible, setVisible] = useState(false);
+  const [trackHeight, setTrackHeight] = useState(0);
   const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    const updateHeight = () => setTrackHeight(window.innerHeight - 80);
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -22,12 +27,12 @@ export default function RocketScrollbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => {
+      window.removeEventListener("resize", updateHeight);
       window.removeEventListener("scroll", handleScroll);
       if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
     };
   }, []);
 
-  const trackHeight = typeof window !== "undefined" ? window.innerHeight - 80 : 600;
   const rocketY = scrollPercent * trackHeight;
 
   return (
@@ -83,7 +88,6 @@ export default function RocketScrollbar() {
         }}
       />
 
-      {/* Rakieta */}
       <div
         style={{
           position: "absolute",

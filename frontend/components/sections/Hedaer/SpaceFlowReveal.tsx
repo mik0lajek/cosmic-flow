@@ -1,14 +1,24 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function SpaceFlowReveal() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressRef = useRef(0);
   const animatingRef = useRef(false);
   const doneRef = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -29,8 +39,8 @@ export default function SpaceFlowReveal() {
       ctx.font = `900 ${fontSize}px "Playfair Display", serif`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText("SPACE", w / 2, h / 2 - fontSize * 0.55);
-      ctx.fillText("FLOW", w / 2, h / 2 + fontSize * 0.55);
+      ctx.fillText("SOLAR", w / 2, h / 2 - fontSize * 0.55);
+      ctx.fillText("SYSTEM", w / 2, h / 2 + fontSize * 0.55);
       ctx.globalCompositeOperation = "source-over";
 
       canvas.style.opacity = String(progress);
@@ -50,6 +60,7 @@ export default function SpaceFlowReveal() {
     let startProgress = 0;
     let targetProgress = 0;
     let rafId: number | null = null;
+    let lastScrollY = window.scrollY;
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
@@ -66,7 +77,6 @@ export default function SpaceFlowReveal() {
       } else {
         animatingRef.current = false;
         doneRef.current = targetProgress >= 1;
-        canvas.style.pointerEvents = doneRef.current ? "none" : "all";
       }
     };
 
@@ -84,8 +94,23 @@ export default function SpaceFlowReveal() {
       animatingRef.current = false;
       doneRef.current = false;
       progressRef.current = 0;
-      canvas.style.pointerEvents = "all";
       draw(0);
+    };
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const isReturningUp = currentScrollY < lastScrollY;
+      lastScrollY = currentScrollY;
+
+      if (!isReturningUp || progressRef.current <= 0) return;
+
+      const header = document.querySelector("header");
+      const headerBottom = header?.getBoundingClientRect().bottom ?? 0;
+      const isHeaderVisible = headerBottom > 0;
+
+      if (isHeaderVisible) {
+        resetReveal();
+      }
     };
 
     const handleWheel = (e: WheelEvent) => {
@@ -127,14 +152,60 @@ export default function SpaceFlowReveal() {
       }
     };
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const header = document.querySelector("header");
+      const headerBottom = header?.getBoundingClientRect().bottom ?? 0;
+      const isHeaderVisible = headerBottom > 0;
+
+      const isDown = e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ";
+      const isUp   = e.key === "ArrowUp"   || e.key === "PageUp";
+      if (!isDown && !isUp) return;
+
+      if (isUp && !isHeaderVisible) {
+        e.preventDefault();
+        canvas.style.opacity = "0";
+        canvas.style.pointerEvents = "none";
+        if (rafId) cancelAnimationFrame(rafId);
+        animatingRef.current = false;
+
+        let scrollEndTimer: ReturnType<typeof setTimeout>;
+        const onScrollEnd = () => {
+          clearTimeout(scrollEndTimer);
+          scrollEndTimer = setTimeout(() => {
+            window.removeEventListener("scroll", onScrollEnd);
+            resetReveal();
+          }, 50);
+        };
+        window.addEventListener("scroll", onScrollEnd);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      if (doneRef.current && isDown) return;
+
+      if (isDown && progressRef.current < 1) {
+        e.preventDefault();
+        triggerAnimation(1);
+      } else if (isUp && progressRef.current > 0) {
+        e.preventDefault();
+        triggerAnimation(0);
+      }
+    };
+
     window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", resize);
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <canvas
@@ -143,7 +214,7 @@ export default function SpaceFlowReveal() {
         position: "absolute",
         inset: 0,
         zIndex: 20,
-        pointerEvents: "all",
+        pointerEvents: "none",
         width: "100%",
         height: "100%",
       }}

@@ -8,13 +8,15 @@ import SpaceFlowReveal from "./SpaceFlowReveal";
 
 export default function Header() {
   return (
-    <header className="relative w-screen h-screen px-4xl flex items-center ">
+    <header id="section-start" className="discover-header">
       <Image
         src={IMGBG}
         alt="Header Background"
         quality={75}
         fill
-        className="w-full h-full object-cover"
+        priority
+        sizes="100vw"
+        className="discover-header__bg"
       />
 
       <div className="astronaut-wrapper">
@@ -31,13 +33,13 @@ export default function Header() {
 
       <h1
         id="header"
-        className="relative z-10"
+        className="discover-title"
         style={{ textShadow: "10px 10px 9.8px rgba(0,0,0,1)" }}
       >
         DISCOVER
       </h1>
 
-      <ScrollIndicator className="absolute bottom-15 left-1/2 transform -translate-x-1/2" />
+      <ScrollIndicator className="discover-scroll" />
       <SpaceFlowReveal />
     </header>
   );
