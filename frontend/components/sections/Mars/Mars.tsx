@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import MARS from "../../../Images/sections/mars.png";
+import MARS from "../../../Images/sections/mars.webp";
 import "../../../styles/mars/mars.css";
 
 const stats = [

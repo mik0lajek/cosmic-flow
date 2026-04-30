@@ -1,5 +1,5 @@
 import Image from "next/image";
-import EARTH from "../../../Images/sections/earth.png";
+import EARTH from "../../../Images/sections/earth.webp";
 import "../../../styles/earth/earth.css";
 
 const earthDetails = [
